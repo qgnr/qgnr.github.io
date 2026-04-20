@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>薇尔莉特·伊芙加登 | 紫罗兰永恒花园粉丝网站</title>
+    <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的 Tailwind 配置 -->
     <script>
         tailwind.config = {
             theme: {
@@ -31,12 +34,22 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
                     },
                     keyframes: {
-                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } }
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
                     },
                     backgroundImage: {
-                        'hero-pattern': "url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/e959a48133ae428fba83f9fe39d889e6~tplv-a9rns2rl98-image.image')"
+                        'hero-pattern': "url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/e959a48133ae428fba83f9fe39d889e6~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260420091819377D044FADDFB126FE2E&rrcfp=f06b921b&x-expires=1779239962&x-signature=FHF7tao6tB4cXH1o7htQ3O4G2Ck%3D')",
+                        'violet-pattern': "linear-gradient(135deg, #C9A0DC 0%, #E6D7F0 100%)"
                     }
                 }
             }
@@ -44,96 +57,1274 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-            .text-shadow-sm { text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-            .glass { background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); }
-            .card-hover { transition: all 0.3s ease; }
-            .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-            .scrollbar-hide::-webkit-scrollbar { display: none; }
-            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-            .backface-hidden { backface-visibility: hidden; }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .text-shadow-sm {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            }
+            .glass {
+                background: rgba(255, 255, 255, 0.25);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .letter-animation {
+                overflow: hidden;
+                white-space: nowrap;
+                animation: typing 3.5s steps(40, end);
+            }
+            @keyframes typing {
+                from { width: 0 }
+                to { width: 100% }
+            }
+            .rotate-y-180 {
+                transform: rotateY(180deg);
+            }
+            .preserve-3d {
+                transform-style: preserve-3d;
+            }
+            .perspective {
+                perspective: 1000px;
+            }
+            .backface-hidden {
+                backface-visibility: hidden;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
-
-<!-- 导航 -->
-<nav class="bg-white shadow-md fixed w-full z-50" id="navbar">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <a class="font-serif text-xl text-primary font-bold">薇尔莉特·伊芙加登</a>
-        <div class="hidden md:flex space-x-6">
-            <a href="#home">首页</a><a href="#character">角色</a><a href="#story">剧情</a><a href="#gallery">画廊</a><a href="#ai-chat">AI聊天</a><a href="#community">社区</a>
-        </div>
-    </div>
-</nav>
-
-<!-- 首页 -->
-<section id="home" class="bg-hero-pattern bg-cover min-h-screen flex items-center pt-20">
-    <div class="container mx-auto px-4 py-16">
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 text-white">
-                <h1 class="text-5xl font-bold font-serif mb-4 text-shadow">薇尔莉特·伊芙加登</h1>
-                <p class="text-xl mb-6">花无凋零之时，爱无传达之期</p>
-                <p class="mb-8 max-w-lg">从战场的武器，到理解爱的自动手记人偶。</p>
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-primary text-2xl font-serif font-bold">薇尔莉特</span>
+                <span class="text-gray-600 text-sm hidden md:inline">紫罗兰永恒花园</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-primary transition-colors">首页</a>
+                <a href="#character" class="text-gray-700 hover:text-primary transition-colors">角色图鉴</a>
+                <a href="#story" class="text-gray-700 hover:text-primary transition-colors">剧情解析</a>
+                <a href="#gallery" class="text-gray-700 hover:text-primary transition-colors">画廊</a>
+                <a href="#ai-chat" class="text-gray-700 hover:text-primary transition-colors">AI互动</a>
+                <a href="#community" class="text-gray-700 hover:text-primary transition-colors">社区</a>
             </div>
-            <div class="md:w-1/2 mt-10 md:mt-0">
-                <img src="https://picsum.photos/id/1005/600/800" alt="薇尔莉特" class="rounded-xl shadow-2xl w-64 mx-auto">
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menu-toggle">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white shadow-lg absolute w-full" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#home" class="text-gray-700 hover:text-primary py-2 transition-colors">首页</a>
+                <a href="#character" class="text-gray-700 hover:text-primary py-2 transition-colors">角色图鉴</a>
+                <a href="#story" class="text-gray-700 hover:text-primary py-2 transition-colors">剧情解析</a>
+                <a href="#gallery" class="text-gray-700 hover:text-primary py-2 transition-colors">画廊</a>
+                <a href="#ai-chat" class="text-gray-700 hover:text-primary py-2 transition-colors">AI互动</a>
+                <a href="#community" class="text-gray-700 hover:text-primary py-2 transition-colors">社区</a>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- 角色 -->
-<section id="character" class="py-20 bg-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">角色图鉴</h2>
-        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
-        <div class="max-w-3xl mx-auto text-left p-6 bg-gray-50 rounded-xl shadow">
-            <p class="mb-2">金发蓝眼，曾经是战场上的兵器，后来成为自动手记人偶。</p>
-            <p class="mb-2">为了理解少佐的一句「我爱你」，她踏上了学习情感的旅程。</p>
-            <p class="italic text-primary mt-4">“我想知道，爱是什么。”</p>
+    <!-- 首页/英雄区 -->
+    <section id="home" class="bg-hero-pattern bg-cover bg-center min-h-screen flex items-center pt-16">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in">
+                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-white text-shadow mb-4">
+                        薇尔莉特·伊芙加登
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white text-shadow-sm mb-8">
+                        花无凋零之时，爱无传达之期
+                    </p>
+                    <p class="text-white mb-8 max-w-lg">
+                        从战场的"武器"到理解"爱"的自动手记人偶，薇尔莉特的旅程感动了无数人。欢迎来到这个为她而建的粉丝家园。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#character" class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg transition-colors shadow-lg">
+                            了解更多
+                        </a>
+                        <a href="#gallery" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-primary transition-colors">
+                            浏览画廊
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center animate-float">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/09e16e0663b6392dbbef11c12ab7b06b~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=2oCYyx39FIFR0lxd%2B7spApj%2F6WM%3D" alt="薇尔莉特·伊芙加登" class="w-64 md:w-80 rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 角色图鉴 -->
+    <section id="character" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">角色图鉴</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center mb-16">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="perspective">
+                        <div class="preserve-3d transition-all duration-700 hover:rotate-y-180 h-96 w-64 md:w-80 mx-auto">
+                            <div class="absolute w-full h-full backface-hidden">
+                                <img src="https://p11-doubao-search-sign.byteimg.com/labis/c3070183abaf59223361e6df0f300f32~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=KdZb0I5dFq%2FA%2BlrGPhbCqRHMwUM%3D" alt="薇尔莉特·伊芙加登" class="w-full h-full object-cover rounded-lg shadow-xl">
+                            </div>
+                            <div class="absolute w-full h-full backface-hidden bg-primary-light p-6 rounded-lg shadow-xl rotate-y-180 flex flex-col justify-center">
+                                <h3 class="text-xl font-bold text-gray-800 mb-4">军装姿态</h3>
+                                <p class="text-gray-700 mb-2">
+                                    <span class="font-bold">特征：</span>金色长发扎起束于脑后，绿色军装，腰挎武装带
+                                </p>
+                                <p class="text-gray-700">
+                                    <span class="font-bold">时期：</span>作为"战斗兵器"的时期，跟随基尔伯特少校在战场上出生入死
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h3 class="text-2xl font-serif font-bold text-gray-800 mb-4">薇尔莉特·伊芙加登</h3>
+                    <p class="text-gray-700 mb-4">
+                        金发蓝眼，相貌甜美可爱的自动手记人偶少女。年幼时与父母失散而被迪特福利特上校从战场上捡到，在发觉薇尔莉特有着非凡的战斗天赋后将其作为"战斗兵器"赠送给他的弟弟——基尔伯特·布甘比利亚少校。
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        战争结束后，薇尔莉特存活了下来，但却失去双手换上了假肢。为了理解基尔伯特少校在战场上对自己说的"我爱你"到底是什么含义，她成为了C·H邮政公司的"自动手记人偶"。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <p class="text-gray-700"><span class="font-bold">性别：</span>女</p>
+                            <p class="text-gray-700"><span class="font-bold">发色：</span>金色</p>
+                            <p class="text-gray-700"><span class="font-bold">瞳色：</span>蓝色</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-700"><span class="font-bold">身份：</span>自动手记人偶</p>
+                            <p class="text-gray-700"><span class="font-bold">所属：</span>C·H邮政公司</p>
+                            <p class="text-gray-700"><span class="font-bold">配音：</span>石川由依</p>
+                        </div>
+                    </div>
+                    <div class="bg-primary-light p-4 rounded-lg">
+                        <p class="text-gray-800 italic">
+                            "我曾经是一把刀，但是现在，我想成为一个人。"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">角色成长历程</h3>
+                <div class="relative">
+                    <!-- 时间线 -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary"></div>
+                    
+                    <!-- 时间点1 -->
+                    <div class="flex flex-col md:flex-row mb-12 relative">
+                        <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md md:mr-8">
+                                <h4 class="text-xl font-bold text-primary mb-2">幼年时期</h4>
+                                <p class="text-gray-700">
+                                    薇尔莉特年幼时与父母失散，在战场上被迪特福利特上校捡到，发现她有着非凡的战斗天赋。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-1 w-6 h-6 rounded-full bg-secondary border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                    
+                    <!-- 时间点2 -->
+                    <div class="flex flex-col md:flex-row mb-12 relative">
+                        <div class="md:w-1/2 md:pr-12"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-1 w-6 h-6 rounded-full bg-secondary border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12 md:text-left mb-6 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
+                                <h4 class="text-xl font-bold text-primary mb-2">战争时期</h4>
+                                <p class="text-gray-700">
+                                    被作为"战斗兵器"送给基尔伯特少校，跟随他在战场上出生入死，学会了读书写字，得到了绿宝石胸针。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 时间点3 -->
+                    <div class="flex flex-col md:flex-row mb-12 relative">
+                        <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md md:mr-8">
+                                <h4 class="text-xl font-bold text-primary mb-2">战争结束</h4>
+                                <p class="text-gray-700">
+                                    在最后一战中失去双手，基尔伯特少校留下"我爱你"的话语后失踪，薇尔莉特被托付给克劳迪亚·霍金斯。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-1 w-6 h-6 rounded-full bg-secondary border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                    
+                    <!-- 时间点4 -->
+                    <div class="flex flex-col md:flex-row mb-12 relative">
+                        <div class="md:w-1/2 md:pr-12"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-1 w-6 h-6 rounded-full bg-secondary border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12 md:text-left mb-6 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
+                                <h4 class="text-xl font-bold text-primary mb-2">成为自动手记人偶</h4>
+                                <p class="text-gray-700">
+                                    为了理解"我爱你"的含义，薇尔莉特成为C·H邮政公司的自动手记人偶，开始了代写书信的工作。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 时间点5 -->
+                    <div class="flex flex-col md:flex-row relative">
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <div class="bg-white p-6 rounded-lg shadow-md md:mr-8">
+                                <h4 class="text-xl font-bold text-primary mb-2">理解爱的含义</h4>
+                                <p class="text-gray-700">
+                                    通过为不同委托人代写书信，薇尔莉特逐渐理解了人类情感的真谛，最终明白了"我爱你"的含义。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-1 w-6 h-6 rounded-full bg-secondary border-4 border-white"></div>
+                        <div class="md:w-1/2 md:pl-12"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">经典台词</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "花无凋零之时，爱无传达之期，爱亘古不变，紫罗兰永世长存。"
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "我的眼瞳虽被夜色遮蔽，夜空之中却闪耀著繁星。"
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "为什么要写信？因为人有心意想传达给别人。"
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "只要客人有意向，无论何处都会前往。"
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "爱，是想要守护对方的心情。"
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                        <p class="text-gray-700 italic mb-4">
+                            "你可曾窥视过我的眼瞳。若未有过，便请来窥视一下如何。"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 剧情解析 -->
+    <section id="story" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">剧情解析</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                    《紫罗兰永恒花园》讲述了薇尔莉特·伊芙加登从"战斗兵器"转变为理解"爱"的自动手记人偶的成长故事。
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg mb-12">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6">故事背景</h3>
+                <p class="text-gray-700 mb-4">
+                    故事发生在一个架空的大陆，经历了四年的南北战争后，世界正在重建。莱顿沙夫特里希帝国是故事的主要背景，位于特尔西斯大陆的南方中心地带，是一个经济贸易中心。
+                </p>
+                <p class="text-gray-700">
+                    自动手记人偶(Auto Memories Doll)是一种可以将人声所述的内容以文字的形式记录，所谓"代笔"功能的职业。当初为了爱妻制作的机械，之后却成为了更多人的支柱，从此大受欢迎。
+                </p>
+            </div>
+            
+            <div class="mb-16">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">剧情概要</h3>
+                <div class="space-y-8">
+                    <!-- 第1集 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/4 bg-primary-light p-6 flex flex-col justify-center">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">第1集</h4>
+                                <p class="text-gray-700 font-bold">自动手记人偶</p>
+                            </div>
+                            <div class="md:w-3/4 p-6">
+                                <p class="text-gray-700 mb-4">
+                                    薇尔莉特·伊芙加登从战争中幸存下来，但失去了双手，换上了机械义肢。她被托付给克劳迪亚·霍金斯中校，进入C·H邮政公司工作。在那里，她第一次接触到"自动手记人偶"的工作，并决定成为其中一员，希望能理解基尔伯特少校所说的"我爱你"的含义。
+                                </p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-700 italic">
+                                        "我想知道'我爱你'的含义。" — 薇尔莉特
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第2集 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/4 bg-primary-light p-6 flex flex-col justify-center">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">第2集</h4>
+                                <p class="text-gray-700 font-bold">手与言</p>
+                            </div>
+                            <div class="md:w-3/4 p-6">
+                                <p class="text-gray-700 mb-4">
+                                    薇尔莉特开始了她的第一次工作，为一位贵族小姐代写情书。然而，由于她缺乏对情感的理解，她的信过于直接，没有传达出委托人真正的心意。在霍金斯的指导下，薇尔莉特开始学习理解他人的情感。
+                                </p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-700 italic">
+                                        "话语是有表里两面的，嘴上说出来的话并不是全部。" — 霍金斯
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第3集 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/4 bg-primary-light p-6 flex flex-col justify-center">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">第3集</h4>
+                                <p class="text-gray-700 font-bold">少佐与自动手记人偶</p>
+                            </div>
+                            <div class="md:w-3/4 p-6">
+                                <p class="text-gray-700 mb-4">
+                                    薇尔莉特回忆起她与基尔伯特少校的过去。少校教她读书写字，给她起名字，并送给她绿宝石胸针。在最后一战中，少校为了保护薇尔莉特而受伤，并对她说了"我爱你"。
+                                </p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-700 italic">
+                                        "薇尔莉特…你要活下去，自由地活下去，我真心…爱着你。" — 基尔伯特少校
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 更多集数可以根据需要添加 -->
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg transition-colors shadow-md" id="load-more-episodes">
+                        加载更多集数
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6">情感解读</h3>
+                <p class="text-gray-700 mb-6">
+                    《紫罗兰永恒花园》的核心主题是"爱"。通过薇尔莉特的成长历程，作品探讨了爱的多种形式：亲情、友情、爱情，以及对他人的关爱。薇尔莉特从一个不懂情感的"战斗兵器"，逐渐成长为一个理解并能够传达爱的人。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-primary-light p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">爱的学习</h4>
+                        <p class="text-gray-700">
+                            薇尔莉特通过为不同委托人代写书信，学习理解各种情感，包括思念、感激、遗憾和爱。
+                        </p>
+                    </div>
+                    <div class="bg-primary-light p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">自我救赎</h4>
+                        <p class="text-gray-700">
+                            薇尔莉特在帮助他人的同时，也在治愈自己内心的创伤，从战争的阴影中走出来。
+                        </p>
+                    </div>
+                    <div class="bg-primary-light p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">人性的复苏</h4>
+                        <p class="text-gray-700">
+                            作品展示了即使是被当作"武器"的人，也能找回自己的人性，学会去爱与被爱。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 画廊 -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">画廊</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                    精选薇尔莉特的精美图片，包括官方壁纸、同人作品和经典场景截图。
+                </p>
+            </div>
+            
+            <div class="mb-8">
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button class="bg-primary text-white px-6 py-2 rounded-full shadow-md gallery-filter active" data-filter="all">
+                        全部
+                    </button>
+                    <button class="bg-white text-gray-700 hover:bg-primary hover:text-white px-6 py-2 rounded-full shadow-md gallery-filter transition-colors" data-filter="official">
+                        官方壁纸
+                    </button>
+                    <button class="bg-white text-gray-700 hover:bg-primary hover:text-white px-6 py-2 rounded-full shadow-md gallery-filter transition-colors" data-filter="fanart">
+                        同人作品
+                    </button>
+                    <button class="bg-white text-gray-700 hover:bg-primary hover:text-white px-6 py-2 rounded-full shadow-md gallery-filter transition-colors" data-filter="scene">
+                        经典场景
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 官方壁纸 -->
+                    <div class="gallery-item official">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/be1dbe35737d9f86db6842d9ee448dfb~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=mPFjm%2BoWC0rIMxgVGuZjMGGBKw4%3D" alt="薇尔莉特·伊芙加登" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p11-doubao-search-sign.byteimg.com/labis/be1dbe35737d9f86db6842d9ee448dfb~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=mPFjm%2BoWC0rIMxgVGuZjMGGBKw4%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item official">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/c94a358c08b25329dfff6e471fcd5ebd~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199916&x-signature=3aMC2f0PxZFlbfX9EmpJY4CrPFw%3D" alt="薇尔莉特·伊芙加登" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p11-doubao-search-sign.byteimg.com/labis/c94a358c08b25329dfff6e471fcd5ebd~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199916&x-signature=3aMC2f0PxZFlbfX9EmpJY4CrPFw%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item official">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p3-doubao-search-sign.byteimg.com/labis/abf21f24bdd24fbc71e78ce005f007ce~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199916&x-signature=SJDTTHdOaZH9FjGyBVBQAMdiirg%3D" alt="薇尔莉特·伊芙加登" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p3-doubao-search-sign.byteimg.com/labis/abf21f24bdd24fbc71e78ce005f007ce~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199916&x-signature=SJDTTHdOaZH9FjGyBVBQAMdiirg%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 同人作品 -->
+                    <div class="gallery-item fanart">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p26-doubao-search-sign.byteimg.com/labis/62292fbad5d015caf855498c1ba45282~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=l9MikRRpkKxKWnsXlxDodLf%2FZQ4%3D" alt="薇尔莉特·伊芙加登同人图" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p26-doubao-search-sign.byteimg.com/labis/62292fbad5d015caf855498c1ba45282~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=l9MikRRpkKxKWnsXlxDodLf%2FZQ4%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item fanart">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p3-doubao-search-sign.byteimg.com/labis/ffa852cadf45aa6748f0aafeda24e564~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=DssjKAICPnft5JuqBN%2FR4zXVNUg%3D" alt="薇尔莉特·伊芙加登同人图" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p3-doubao-search-sign.byteimg.com/labis/ffa852cadf45aa6748f0aafeda24e564~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=DssjKAICPnft5JuqBN%2FR4zXVNUg%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item fanart">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p3-doubao-search-sign.byteimg.com/labis/bd795f9ce94ec933ee6c43c94f523c0d~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=Oza1NPRUGqkyilGHDU0pyFppKc8%3D" alt="薇尔莉特·伊芙加登同人图" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p3-doubao-search-sign.byteimg.com/labis/bd795f9ce94ec933ee6c43c94f523c0d~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=Oza1NPRUGqkyilGHDU0pyFppKc8%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 经典场景 -->
+                    <div class="gallery-item scene">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p26-doubao-search-sign.byteimg.com/labis/9909c2eba44677bf30b218a73a41d832~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=gI%2FpcNZBcTz620YgnofkXxx%2F40k%3D" alt="紫罗兰永恒花园经典场景" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p26-doubao-search-sign.byteimg.com/labis/9909c2eba44677bf30b218a73a41d832~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=gI%2FpcNZBcTz620YgnofkXxx%2F40k%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item scene">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/994613c63a2da558b581c4f0cddf4745~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=0NJsL%2BYgtmO%2BXoZ2UVjtHDPCUe0%3D" alt="紫罗兰永恒花园经典场景" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p11-doubao-search-sign.byteimg.com/labis/994613c63a2da558b581c4f0cddf4745~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=0NJsL%2BYgtmO%2BXoZ2UVjtHDPCUe0%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item scene">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/56c9ea453febff68588617f1a4145071~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=AX0F0NXk5ad5qDrijDVIjgGsQ%2Fg%3D" alt="紫罗兰永恒花园经典场景" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button class="bg-white text-primary px-4 py-2 rounded-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 view-image" data-image="https://p11-doubao-search-sign.byteimg.com/labis/56c9ea453febff68588617f1a4145071~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=AX0F0NXk5ad5qDrijDVIjgGsQ%2Fg%3D">
+                                    查看大图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 动态场景重现 -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">动态场景重现</h3>
+                <div class="bg-gray-900 rounded-xl p-8 shadow-2xl">
+                    <div class="relative">
+                        <div class="aspect-w-16 aspect-h-9 mb-6">
+                            <div class="relative w-full h-64 md:h-96 bg-gray-800 rounded-lg overflow-hidden">
+                                <img src="https://p11-doubao-search-sign.byteimg.com/labis/994613c63a2da558b581c4f0cddf4745~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=0NJsL%2BYgtmO%2BXoZ2UVjtHDPCUe0%3D" alt="薇尔莉特跳水场景" class="w-full h-full object-cover animate-float" id="scene-image">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                                    <div class="p-6">
+                                        <h4 class="text-white text-xl font-bold mb-2">经典一跳</h4>
+                                        <p class="text-gray-200">
+                                            薇尔莉特为了救下坠水的小女孩，毫不犹豫地跳入湖中，这一场景展现了她对生命的珍视和成长。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center space-x-4">
+                            <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors shadow-md scene-btn active" data-scene="scene1">
+                                经典一跳
+                            </button>
+                            <button class="bg-gray-700 hover:bg-primary text-white px-4 py-2 rounded-lg transition-colors shadow-md scene-btn" data-scene="scene2">
+                                湖畔沉思
+                            </button>
+                            <button class="bg-gray-700 hover:bg-primary text-white px-4 py-2 rounded-lg transition-colors shadow-md scene-btn" data-scene="scene3">
+                                写信时光
+                            </button>
+                        </div>
+                        
+                        <div class="mt-6 text-center">
+                            <button class="bg-white text-primary hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors shadow-md flex items-center mx-auto" id="play-audio">
+                                <i class="fa fa-music mr-2"></i> 播放背景音乐
+                            </button>
+                            <audio id="bg-music" loop>
+                                <source src="" type="audio/mpeg">
+                                您的浏览器不支持音频元素。
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI互动 -->
+    <section id="ai-chat" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">AI互动聊天</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                    与模拟薇尔莉特语气的AI进行对话，体验仿佛与薇尔莉特本人交流的感觉。
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-primary p-4 flex items-center">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/09e16e0663b6392dbbef11c12ab7b06b~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=2oCYyx39FIFR0lxd%2B7spApj%2F6WM%3D" alt="薇尔莉特·伊芙加登" class="w-12 h-12 rounded-full object-cover border-2 border-white">
+                        <div class="ml-4">
+                            <h3 class="text-white font-bold text-lg">薇尔莉特·伊芙加登</h3>
+                            <p class="text-white/80 text-sm">自动手记人偶</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 h-96 overflow-y-auto mb-4 scrollbar-hide" id="chat-messages">
+                        <div class="flex mb-6">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/09e16e0663b6392dbbef11c12ab7b06b~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=2oCYyx39FIFR0lxd%2B7spApj%2F6WM%3D" alt="薇尔莉特·伊芙加登" class="w-10 h-10 rounded-full object-cover mr-3">
+                            <div class="bg-gray-100 rounded-lg p-4 max-w-[80%]">
+                                <p class="text-gray-800">
+                                    您好，我是自动手记人偶薇尔莉特·伊芙加登。如果您有任何需要传达的心意，我很乐意倾听并协助您。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 border-t">
+                        <div class="flex">
+                            <input type="text" id="user-input" class="flex-1 border border-gray-300 rounded-l-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入您想对薇尔莉特说的话...">
+                            <button class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-r-lg transition-colors" id="send-message">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm transition-colors quick-question">
+                                你觉得什么是爱？
+                            </button>
+                            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm transition-colors quick-question">
+                                你最喜欢的工作是什么？
+                            </button>
+                            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm transition-colors quick-question">
+                                你想念基尔伯特少校吗？
+                            </button>
+                            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm transition-colors quick-question">
+                                你认为自动手记人偶的意义是什么？
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">关于AI互动</h3>
+                    <p class="text-gray-700">
+                        这个功能使用了先进的AI技术，模拟薇尔莉特的语气和性格特点，让您能够与她进行对话。请注意，这只是一个模拟，并非真正的薇尔莉特本人。
+                    </p>
+                    <p class="text-gray-700 mt-2">
+                        您可以询问她关于爱、工作、生活的问题，或者分享您的感受和想法。她会以薇尔莉特特有的方式回应您。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社区 -->
+    <section id="community" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">粉丝社区</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                    加入我们的粉丝社区，与其他紫罗兰永恒花园的爱好者分享您的想法和感受。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- 留言板 -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6">留言板</h3>
+                    <div class="space-y-6 mb-8" id="message-board">
+                        <!-- 留言1 -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-gray-800">樱花雨</h4>
+                                <span class="text-gray-500 text-sm">2023-06-15</span>
+                            </div>
+                            <p class="text-gray-700">
+                                薇尔莉特的成长历程真的很感人，每次看都会被她的坚强和温柔所打动。希望她能找到属于自己的幸福。
+                            </p>
+                            <div class="mt-3 flex items-center">
+                                <button class="text-gray-500 hover:text-primary transition-colors flex items-center">
+                                    <i class="fa fa-heart-o mr-1"></i> <span>24</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 留言2 -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-gray-800">紫罗兰爱好者</h4>
+                                <span class="text-gray-500 text-sm">2023-06-10</span>
+                            </div>
+                            <p class="text-gray-700">
+                                这部作品教会了我什么是真正的爱，不仅仅是爱情，还有对家人、朋友的爱，以及对自己的爱。感谢京阿尼创造了这么棒的作品！
+                            </p>
+                            <div class="mt-3 flex items-center">
+                                <button class="text-gray-500 hover:text-primary transition-colors flex items-center">
+                                    <i class="fa fa-heart-o mr-1"></i> <span>36</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="message-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">昵称</label>
+                            <input type="text" id="name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入您的昵称">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">留言</label>
+                            <textarea id="message" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入您想分享的内容..."></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg transition-colors shadow-md w-full">
+                            提交留言
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- 讨论区 -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6">讨论区</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="bg-gray-50 p-4 rounded-lg card-hover cursor-pointer">
+                            <h4 class="font-bold text-gray-800 mb-2">薇尔莉特的成长历程</h4>
+                            <p class="text-gray-600 text-sm mb-2">
+                                <span class="text-primary">32</span> 回复 · <span class="text-gray-500">最后回复: 2023-06-18</span>
+                            </p>
+                            <p class="text-gray-700 line-clamp-2">
+                                从一个不懂情感的"战斗兵器"到理解"爱"的自动手记人偶，薇尔莉特的成长历程令人动容。大家觉得哪个瞬间最能体现她的成长？
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg card-hover cursor-pointer">
+                            <h4 class="font-bold text-gray-800 mb-2">《紫罗兰永恒花园》中的经典台词</h4>
+                            <p class="text-gray-600 text-sm mb-2">
+                                <span class="text-primary">45</span> 回复 · <span class="text-gray-500">最后回复: 2023-06-17</span>
+                            </p>
+                            <p class="text-gray-700 line-clamp-2">
+                                这部作品中有很多感人的台词，哪一句最打动你？为什么？
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg card-hover cursor-pointer">
+                            <h4 class="font-bold text-gray-800 mb-2">关于剧场版的感想</h4>
+                            <p class="text-gray-600 text-sm mb-2">
+                                <span class="text-primary">28</span> 回复 · <span class="text-gray-500">最后回复: 2023-06-15</span>
+                            </p>
+                            <p class="text-gray-700 line-clamp-2">
+                                剧场版给了薇尔莉特一个完美的结局，大家对这个结局有什么看法？你觉得满意吗？
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg card-hover cursor-pointer">
+                            <h4 class="font-bold text-gray-800 mb-2">紫罗兰永恒花园的音乐</h4>
+                            <p class="text-gray-600 text-sm mb-2">
+                                <span class="text-primary">19</span> 回复 · <span class="text-gray-500">最后回复: 2023-06-12</span>
+                            </p>
+                            <p class="text-gray-700 line-clamp-2">
+                                这部作品的音乐非常优美，哪首曲子最能打动你？它在剧中的哪个场景出现？
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg transition-colors shadow-md w-full">
+                        查看更多讨论
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 角色生日倒计时 -->
+            <div class="bg-primary-light rounded-xl p-8 shadow-lg">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">薇尔莉特生日倒计时</h3>
+                <div class="flex justify-center space-x-4 md:space-x-8">
+                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
+                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="days">00</span>
+                        <span class="text-gray-600">天</span>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
+                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="hours">00</span>
+                        <span class="text-gray-600">时</span>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
+                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="minutes">00</span>
+                        <span class="text-gray-600">分</span>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
+                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="seconds">00</span>
+                        <span class="text-gray-600">秒</span>
+                    </div>
+                </div>
+                <p class="text-center text-gray-700 mt-6">
+                    薇尔莉特的生日是10月25日，让我们一起倒数迎接这特别的日子！
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">紫罗兰永恒花园</h3>
+                    <p class="text-gray-400">
+                        为薇尔莉特·伊芙加登的粉丝打造的专属网站，分享关于她的一切美好。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">首页</a></li>
+                        <li><a href="#character" class="text-gray-400 hover:text-primary transition-colors">角色图鉴</a></li>
+                        <li><a href="#story" class="text-gray-400 hover:text-primary transition-colors">剧情解析</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-primary transition-colors">画廊</a></li>
+                        <li><a href="#ai-chat" class="text-gray-400 hover:text-primary transition-colors">AI互动</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">相关资源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">原作小说</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">动画剧集</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">剧场版</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">音乐集</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope-o mr-2 text-primary"></i>
+                            <a href="mailto:contact@violet-evergarden.com" class="text-gray-400 hover:text-primary transition-colors">contact@violet-evergarden.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-twitter mr-2 text-primary"></i>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">@VioletEvergarden</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-facebook mr-2 text-primary"></i>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">Violet Evergarden</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-500">
+                    © 2023 紫罗兰永恒花园粉丝网站 | 作者：千古诺然 | 本站仅为粉丝创作，非官方网站
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片查看器模态框 -->
+    <div class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex items-center justify-center" id="image-viewer">
+        <div class="relative max-w-4xl mx-auto">
+            <button class="absolute -top-12 right-0 text-white text-2xl hover:text-primary transition-colors" id="close-viewer">
+                <i class="fa fa-times"></i>
+            </button>
+            <img src="" alt="大图预览" class="max-w-full max-h-[80vh] rounded-lg" id="viewer-image">
         </div>
     </div>
-</section>
 
-<!-- 画廊 -->
-<section id="gallery" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">精美画廊</h2>
-        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <img src="https://picsum.photos/id/1001/500/700" class="rounded-lg shadow-md">
-            <img src="https://picsum.photos/id/1002/500/700" class="rounded-lg shadow-md">
-            <img src="https://picsum.photos/id/1003/500/700" class="rounded-lg shadow-md">
-        </div>
-    </div>
-</section>
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm');
+                navbar.classList.remove('bg-white');
+            } else {
+                navbar.classList.add('bg-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
 
-<!-- AI聊天 -->
-<section id="ai-chat" class="py-20 bg-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">AI 互动聊天</h2>
-        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
-        <div class="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl shadow">
-            <p>与薇尔莉特进行模拟对话，体验她温柔而坚定的语气。</p>
-            <input class="w-full mt-4 p-3 border rounded-lg" placeholder="输入你想说的话…">
-            <button class="mt-4 bg-primary text-white px-6 py-3 rounded-lg">发送</button>
-        </div>
-    </div>
-</section>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
 
-<!-- 社区 -->
-<section id="community" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">粉丝社区</h2>
-        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
-        <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
-            <p>欢迎留下你对薇尔莉特的喜爱与感想</p>
-            <textarea class="w-full mt-4 p-3 border rounded-lg" rows="4" placeholder="写下你的留言…"></textarea>
-            <button class="mt-4 bg-primary text-white px-6 py-3 rounded-lg">提交留言</button>
-        </div>
-    </div>
-</section>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端，点击后关闭菜单
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // 画廊筛选
+        document.querySelectorAll('.gallery-filter').forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新按钮样式
+                document.querySelectorAll('.gallery-filter').forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-primary', 'hover:text-white');
+                });
+                this.classList.remove('bg-white', 'text-gray-700', 'hover:bg-primary', 'hover:text-white');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // 筛选图片
+                const filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 图片查看器
+        document.querySelectorAll('.view-image').forEach(button => {
+            button.addEventListener('click', function() {
+                const imageUrl = this.getAttribute('data-image');
+                document.getElementById('viewer-image').src = imageUrl;
+                document.getElementById('image-viewer').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        document.getElementById('close-viewer').addEventListener('click', function() {
+            document.getElementById('image-viewer').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 点击模态框背景关闭
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 动态场景切换
+        const scenes = {
+            scene1: {
+                image: 'https://p11-doubao-search-sign.byteimg.com/labis/994613c63a2da558b581c4f0cddf4745~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=0NJsL%2BYgtmO%2BXoZ2UVjtHDPCUe0%3D',
+                title: '经典一跳',
+                description: '薇尔莉特为了救下坠水的小女孩，毫不犹豫地跳入湖中，这一场景展现了她对生命的珍视和成长。'
+            },
+            scene2: {
+                image: 'https://p26-doubao-search-sign.byteimg.com/labis/9909c2eba44677bf30b218a73a41d832~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=gI%2FpcNZBcTz620YgnofkXxx%2F40k%3D',
+                title: '湖畔沉思',
+                description: '薇尔莉特坐在湖边的木板上，望着远方，思考着"爱"的含义，这是她成长过程中的重要时刻。'
+            },
+            scene3: {
+                image: 'https://p3-doubao-search-sign.byteimg.com/labis/ffa852cadf45aa6748f0aafeda24e564~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199932&x-signature=DssjKAICPnft5JuqBN%2FR4zXVNUg%3D',
+                title: '写信时光',
+                description: '薇尔莉特专注地为委托人写信，她的认真和专业态度体现了她对这份工作的热爱和尊重。'
+            }
+        };
+
+        document.querySelectorAll('.scene-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新按钮样式
+                document.querySelectorAll('.scene-btn').forEach(btn => {
+                    btn.classList.remove('bg-primary', 'active');
+                    btn.classList.add('bg-gray-700');
+                });
+                this.classList.remove('bg-gray-700');
+                this.classList.add('bg-primary', 'active');
+                
+                // 切换场景
+                const sceneId = this.getAttribute('data-scene');
+                const scene = scenes[sceneId];
+                
+                if (scene) {
+                    const sceneImage = document.getElementById('scene-image');
+                    const sceneTitle = sceneImage.nextElementSibling.querySelector('h4');
+                    const sceneDescription = sceneImage.nextElementSibling.querySelector('p');
+                    
+                    // 添加淡入淡出效果
+                    sceneImage.style.opacity = '0';
+                    setTimeout(() => {
+                        sceneImage.src = scene.image;
+                        sceneTitle.textContent = scene.title;
+                        sceneDescription.textContent = scene.description;
+                        sceneImage.style.opacity = '1';
+                    }, 300);
+                }
+            });
+        });
+
+        // 播放背景音乐
+        document.getElementById('play-audio').addEventListener('click', function() {
+            const audio = document.getElementById('bg-music');
+            const button = this;
+            
+            if (audio.paused) {
+                audio.play();
+                button.innerHTML = '<i class="fa fa-pause mr-2"></i> 暂停背景音乐';
+            } else {
+                audio.pause();
+                button.innerHTML = '<i class="fa fa-music mr-2"></i> 播放背景音乐';
+            }
+        });
+
+        // AI聊天功能
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-message');
+
+        // 预设回复
+        const responses = {
+            '你觉得什么是爱？': '爱，是想要守护对方的心情。是愿意为对方付出一切，希望对方幸福的情感。我通过为不同委托人代写书信，逐渐理解了爱的多种形式。',
+            '你最喜欢的工作是什么？': '我最喜欢的工作是作为自动手记人偶，为委托人代写书信。通过这种方式，我能够帮助人们传达内心的情感，这让我感到非常有意义。',
+            '你想念基尔伯特少校吗？': '是的，我非常想念他。他是第一个教我读书写字的人，给我起了名字，并告诉我"我爱你"。虽然我现在才理解这句话的含义，但我会永远珍视他给我的回忆。',
+            '你认为自动手记人偶的意义是什么？': '自动手记人偶的意义在于帮助人们传达那些难以亲口诉说的情感。有时候，人们需要借助他人的手来表达自己的心意。能够成为连接人与人之间情感的桥梁，是我的荣幸。'
+        };
+
+        // 发送消息函数
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            // 添加用户消息
+            chatMessages.innerHTML += `
+                <div class="flex justify-end mb-6">
+                    <div class="bg-primary text-white rounded-lg p-4 max-w-[80%]">
+                        <p>${message}</p>
+                    </div>
+                </div>
+            `;
+            
+            // 清空输入框
+            userInput.value = '';
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // 显示"正在输入"状态
+            chatMessages.innerHTML += `
+                <div class="flex mb-6 typing-indicator">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/09e16e0663b6392dbbef11c12ab7b06b~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=2oCYyx39FIFR0lxd%2B7spApj%2F6WM%3D" alt="薇尔莉特·伊芙加登" class="w-10 h-10 rounded-full object-cover mr-3">
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <div class="flex space-x-2">
+                            <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                            <div class="w-2 h-2 bg-primary rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-primary rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // 模拟AI回复延迟
+            setTimeout(() => {
+                // 移除"正在输入"状态
+                document.querySelector('.typing-indicator').remove();
+                
+                // 获取回复
+                let reply = responses[message];
+                if (!reply) {
+                    // 如果没有预设回复，使用通用回复
+                    reply = "感谢您的留言。作为自动手记人偶，我会认真倾听每一位委托人的心声。如果您有任何需要传达的情感，我很乐意协助您。";
+                }
+                
+                // 添加AI回复
+                chatMessages.innerHTML += `
+                    <div class="flex mb-6">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/09e16e0663b6392dbbef11c12ab7b06b~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792199915&x-signature=2oCYyx39FIFR0lxd%2B7spApj%2F6WM%3D" alt="薇尔莉特·伊芙加登" class="w-10 h-10 rounded-full object-cover mr-3">
+                        <div class="bg-gray-100 rounded-lg p-4 max-w-[80%]">
+                            <p class="text-gray-800">${reply}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // 滚动到底部
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+        }
+
+        // 发送按钮点击事件
+        sendButton.addEventListener('click', sendMessage);
+
+        // 输入框回车事件
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // 快速问题点击事件
+        document.querySelectorAll('.quick-question').forEach(button => {
+            button.addEventListener('click', function() {
+                userInput.value = this.textContent.trim();
+                sendMessage();
+            });
+        });
+
+        // 留言板功能
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (name === '' || message === '') {
+                alert('请填写昵称和留言内容');
+                return;
+            }
+            
+            // 获取当前日期
+            const now = new Date();
+            const dateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            
+            // 添加新留言
+            const messageBoard = document.getElementById('message-board');
+            messageBoard.innerHTML = `
+                <div class="bg-gray-50 p-4 rounded-lg animate-fade-in">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-gray-800">${name}</h4>
+                        <span class="text-gray-500 text-sm">${dateString}</span>
+                    </div>
+                    <p class="text-gray-700">
+                        ${message}
+                    </p>
+                    <div class="mt-3 flex items-center">
+                        <button class="text-gray-500 hover:text-primary transition-colors flex items-center">
+                            <i class="fa fa-heart-o mr-1"></i> <span>0</span>
+                        </button>
+                    </div>
+                </div>
+            ` + messageBoard.innerHTML;
+            
+            // 清空表单
+            document.getElementById('name').value = '';
+            document.getElementById('message').value = '';
+            
+            // 添加点赞功能
+            messageBoard.querySelector('button').addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                const count = this.querySelector('span');
+                
+                if (icon.classList.contains('fa-heart-o')) {
+                    icon.classList.remove('fa-heart-o');
+                    icon.classList.add('fa-heart');
+                    this.classList.remove('text-gray-500');
+                    this.classList.add('text-primary');
+                    count.textContent = '1';
+                } else {
+                    icon.classList.remove('fa-heart');
+                    icon.classList.add('fa-heart-o');
+                    this.classList.remove('text-primary');
+                    this.classList.add('text-gray-500');
+                    count.textContent = '0';
+                }
+            });
+        });
+
+        // 加载更多集数
+        document.getElementById('load-more-episodes').addEventListener('click', function() {
+            const button = this;
+            const originalText = button.textContent;
+            
+            // 显示加载中状态
+            button.disabled = true;
+            button.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> 加载中...';
+            
+            // 模拟加载延迟
+            setTimeout(() => {
+                // 添加新集数
+                const episodesContainer = document.querySelector('.space-y-8');
+                
+                // 第4集
+                episodesContainer.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/4 bg-primary-light p-6 flex flex-col justify-center">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">第4集</h4>
+                                <p class="text-gray-700 font-bold">家族的记忆</p>
+                            </div>
+                            <div class="md:w-3/4 p-6">
+                                <p class="text-gray-700 mb-4">
+                                    薇尔莉特接到一个特殊的委托，为一位即将离世的母亲代写遗书给她的女儿。通过这个委托，薇尔莉特开始理解母爱的伟大。
+                                </p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-700 italic">
+                                        "即使我不在了，我的爱也会永远陪伴着你。" — 委托人
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 第5集
+                episodesContainer.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/4 bg-primary-light p-6 flex flex-col justify-center">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">第5集</h4>
+                                <p class="text-gray-700 font-bold">学者与自动手记人偶</p>
+                            </div>
+                            <div class="md:w-3/4 p-6">
+                                <p class="text-gray-700 mb-4">
+                                    薇尔莉特遇到了一位研究自动手记人偶的学者，他对薇尔莉特的机械手臂很感兴趣。在与他的交流中，薇尔莉特开始思考自己的存在意义。
+                                </p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-700 italic">
+                                        "你不只是工具，你是一个有情感的人。" — 学者
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 恢复按钮状态
+                button.disabled = false;
+                button.textContent = originalText;
+                
+                // 更改按钮文本
+                button.textContent = '已加载全部集数';
+                button.classList.remove('bg-primary', 'hover:bg-primary-dark');
+                button.classList.add('bg-gray-500', 'cursor-not-allowed');
+                button.disabled = true;
+            }, 1500);
+        });
+
+        // 生日倒计时
+        function updateCountdown() {
+            const now = new Date();
+            const birthday = new Date(now.getFullYear(), 9, 25); // 10月25日
+            
+            // 如果今年的生日已经过了，计算到明年生日的时间
+            if (now > birthday) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+            }
+            
+            const diff = birthday - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // 初始化倒计时
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+
 
 <!-- 页脚 -->
 <footer class="bg-gray-900 text-white py-10">
