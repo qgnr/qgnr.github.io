@@ -632,7 +632,7 @@
                                 <i class="fa fa-music mr-2"></i> 播放背景音乐
                             </button>
                             <audio id="bg-music" loop>
-                                <source src="" type="audio/mpeg">
+                                <source src="https://music.10086.cn/v1/1018/10186788.mp3" type="audio/mpeg">
                                 您的浏览器不支持音频元素。
                             </audio>
                         </div>
@@ -825,32 +825,6 @@
                     </button>
                 </div>
             </div>
-            
-            <!-- 角色生日倒计时 -->
-            <div class="bg-primary-light rounded-xl p-8 shadow-lg">
-                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6 text-center">薇尔莉特生日倒计时</h3>
-                <div class="flex justify-center space-x-4 md:space-x-8">
-                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
-                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="days">00</span>
-                        <span class="text-gray-600">天</span>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
-                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="hours">00</span>
-                        <span class="text-gray-600">时</span>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
-                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="minutes">00</span>
-                        <span class="text-gray-600">分</span>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md text-center w-20 md:w-32">
-                        <span class="block text-3xl md:text-4xl font-bold text-primary" id="seconds">00</span>
-                        <span class="text-gray-600">秒</span>
-                    </div>
-                </div>
-                <p class="text-center text-gray-700 mt-6">
-                    薇尔莉特的生日是10月25日，让我们一起倒数迎接这特别的日子！
-                </p>
-            </div>
         </div>
     </section>
 
@@ -903,7 +877,7 @@
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-500">
-                    © 2023 紫罗兰永恒花园粉丝网站 | 作者：千古诺然 | 本站仅为粉丝创作，非官方网站
+                    © 2025 紫罗兰永恒花园粉丝网站 | 作者：千古诺然 | 本站仅为粉丝创作，非官方网站
                 </p>
             </div>
         </div>
@@ -1296,43 +1270,6 @@
                 button.disabled = true;
             }, 1500);
         });
-
-        // 生日倒计时
-        function updateCountdown() {
-            const now = new Date();
-            const birthday = new Date(now.getFullYear(), 9, 25); // 10月25日
-            
-            // 如果今年的生日已经过了，计算到明年生日的时间
-            if (now > birthday) {
-                birthday.setFullYear(birthday.getFullYear() + 1);
-            }
-            
-            const diff = birthday - now;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-        
-        // 初始化倒计时
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
     </script>
-
-
-<!-- 页脚 -->
-<footer class="bg-gray-900 text-white py-10">
-    <div class="container mx-auto px-4 text-center">
-        <p>© 2025 紫罗兰永恒花园 薇尔莉特粉丝网站</p>
-        <p class="text-gray-400 text-sm mt-2">作者：千古诺然 | 仅用于非商业粉丝创作 | 非官方网站</p>
-    </div>
-</footer>
-
 </body>
 </html>
