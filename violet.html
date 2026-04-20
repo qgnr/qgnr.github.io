@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薇尔莉特·伊芙加登 | 紫罗兰永恒花园粉丝网站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C9A0DC',
+                        secondary: '#DAA520',
+                        accent: '#4682B4',
+                        light: '#FFFFFF',
+                        pink: '#FFB6C1',
+                        dark: '#333333',
+                        'primary-light': '#E6D7F0',
+                        'primary-dark': '#A67CB3'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-in-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/e959a48133ae428fba83f9fe39d889e6~tplv-a9rns2rl98-image.image')"
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+            .text-shadow-sm { text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+            .glass { background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); }
+            .card-hover { transition: all 0.3s ease; }
+            .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .backface-hidden { backface-visibility: hidden; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<!-- 导航 -->
+<nav class="bg-white shadow-md fixed w-full z-50" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <a class="font-serif text-xl text-primary font-bold">薇尔莉特·伊芙加登</a>
+        <div class="hidden md:flex space-x-6">
+            <a href="#home">首页</a><a href="#character">角色</a><a href="#story">剧情</a><a href="#gallery">画廊</a><a href="#ai-chat">AI聊天</a><a href="#community">社区</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 首页 -->
+<section id="home" class="bg-hero-pattern bg-cover min-h-screen flex items-center pt-20">
+    <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-white">
+                <h1 class="text-5xl font-bold font-serif mb-4 text-shadow">薇尔莉特·伊芙加登</h1>
+                <p class="text-xl mb-6">花无凋零之时，爱无传达之期</p>
+                <p class="mb-8 max-w-lg">从战场的武器，到理解爱的自动手记人偶。</p>
+            </div>
+            <div class="md:w-1/2 mt-10 md:mt-0">
+                <img src="https://picsum.photos/id/1005/600/800" alt="薇尔莉特" class="rounded-xl shadow-2xl w-64 mx-auto">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 角色 -->
+<section id="character" class="py-20 bg-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">角色图鉴</h2>
+        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+        <div class="max-w-3xl mx-auto text-left p-6 bg-gray-50 rounded-xl shadow">
+            <p class="mb-2">金发蓝眼，曾经是战场上的兵器，后来成为自动手记人偶。</p>
+            <p class="mb-2">为了理解少佐的一句「我爱你」，她踏上了学习情感的旅程。</p>
+            <p class="italic text-primary mt-4">“我想知道，爱是什么。”</p>
+        </div>
+    </div>
+</section>
+
+<!-- 画廊 -->
+<section id="gallery" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">精美画廊</h2>
+        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <img src="https://picsum.photos/id/1001/500/700" class="rounded-lg shadow-md">
+            <img src="https://picsum.photos/id/1002/500/700" class="rounded-lg shadow-md">
+            <img src="https://picsum.photos/id/1003/500/700" class="rounded-lg shadow-md">
+        </div>
+    </div>
+</section>
+
+<!-- AI聊天 -->
+<section id="ai-chat" class="py-20 bg-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">AI 互动聊天</h2>
+        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+        <div class="max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl shadow">
+            <p>与薇尔莉特进行模拟对话，体验她温柔而坚定的语气。</p>
+            <input class="w-full mt-4 p-3 border rounded-lg" placeholder="输入你想说的话…">
+            <button class="mt-4 bg-primary text-white px-6 py-3 rounded-lg">发送</button>
+        </div>
+    </div>
+</section>
+
+<!-- 社区 -->
+<section id="community" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">粉丝社区</h2>
+        <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+        <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
+            <p>欢迎留下你对薇尔莉特的喜爱与感想</p>
+            <textarea class="w-full mt-4 p-3 border rounded-lg" rows="4" placeholder="写下你的留言…"></textarea>
+            <button class="mt-4 bg-primary text-white px-6 py-3 rounded-lg">提交留言</button>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-10">
+    <div class="container mx-auto px-4 text-center">
+        <p>© 2025 紫罗兰永恒花园 薇尔莉特粉丝网站</p>
+        <p class="text-gray-400 text-sm mt-2">作者：千古诺然 | 仅用于非商业粉丝创作 | 非官方网站</p>
+    </div>
+</footer>
+
+</body>
+</html>
