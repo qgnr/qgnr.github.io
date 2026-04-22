@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动漫人格测试 - 匹配你的动漫女性角色</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- AOS 动画库 -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff758f',
+            secondary: '#8a2be2',
+            accent: '#ff9dbb',
+            light: '#fff0f5',
+            dark: '#333333'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce 3s infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .btn-primary {
+        @apply bg-primary text-white font-medium py-2 px-6 rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md hover:shadow-lg;
+      }
+      .btn-secondary {
+        @apply bg-secondary text-white font-medium py-2 px-6 rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md hover:shadow-lg;
+      }
+      .option-btn {
+        @apply w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-light transition-all duration-300;
+      }
+      .option-btn.selected {
+        @apply border-primary bg-light;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+  <!-- 导航栏 -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-heart text-primary text-2xl"></i>
+        <span class="text-lg sm:text-xl font-bold text-dark">动漫人格测试</span>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#welcome" class="text-gray-600 hover:text-primary transition-colors">首页</a>
+        <a href="#about" class="text-gray-600 hover:text-primary transition-colors">关于测试</a>
+        <a href="#characters" class="text-gray-600 hover:text-primary transition-colors">角色介绍</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-600 focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 shadow-inner">
+      <div class="container mx-auto px-4 py-2">
+        <a href="#welcome" class="block py-2 text-gray-600 hover:text-primary transition-colors">首页</a>
+        <a href="#about" class="block py-2 text-gray-600 hover:text-primary transition-colors">关于测试</a>
+        <a href="#characters" class="block py-2 text-gray-600 hover:text-primary transition-colors">角色介绍</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- 欢迎页 -->
+    <section id="welcome" class="flex flex-col items-center justify-center py-12 text-center">
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-dark mb-6 text-shadow">
+          你是哪位<span class="text-primary">动漫女性角色</span>？
+        </h1>
+        <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-8 px-4">
+          通过回答10道精心设计的问题，找出与你性格最匹配的动漫女性角色！
+          测试基于《紫罗兰永恒花园》、《命运石之门》、《从零开始的异世界生活》和《新世纪福音战士》中的经典角色。
+        </p>
+        <button id="start-test" class="btn-primary text-base sm:text-lg px-8 py-3">
+          开始测试 <i class="fa fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+      
+      <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 w-full max-w-5xl">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+          <img src="https://p11-doubao-search-sign.byteimg.com/labis/3ef0c8fecc31f8e24dba7a03a08854be~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=cjzrUO6uUIYNf7HGYzDwRr4PIMM%3D" 
+               alt="薇尔莉特·伊芙加登" class="w-full h-40 sm:h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-dark">薇尔莉特·伊芙加登</h3>
+            <p class="text-sm text-gray-500">《紫罗兰永恒花园》</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+          <img src="https://p26-doubao-search-sign.byteimg.com/labis/1c62ca4181e68e6f7ef5c752cd160f0f~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=UgMgsPvZPn0%2F3MbCW9y0%2B8L5c6c%3D" 
+               alt="牧濑红莉栖" class="w-full h-40 sm:h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-dark">牧濑红莉栖</h3>
+            <p class="text-sm text-gray-500">《命运石之门》</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+          <img src="https://p26-doubao-search-sign.byteimg.com/labis/603c7f232d4673863cd34000ea982368~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=WzrajkSV1U66DxeUEoSx%2B6xh00A%3D" 
+               alt="蕾姆" class="w-full h-40 sm:h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-dark">蕾姆</h3>
+            <p class="text-sm text-gray-500">《从零开始的异世界生活》</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+          <img src="https://p3-doubao-search-sign.byteimg.com/labis/b51afc06664a72817d1c3a7789f14600~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=7EmQSSShusz3qBfQPloscR0%2F%2B78%3D" 
+               alt="明日香" class="w-full h-40 sm:h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-dark">明日香</h3>
+            <p class="text-sm text-gray-500">《新世纪福音战士》</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 测试页 -->
+    <section id="test" class="hidden">
+      <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+          <div class="text-sm text-gray-500">问题 <span id="current-question">1</span>/10</div>
+          <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-primary" style="width: 10%"></div>
+          </div>
+        </div>
+        
+        <h2 id="question-text" class="text-xl sm:text-2xl font-bold text-dark mb-6">问题加载中...</h2>
+        
+        <div id="options-container" class="space-y-4 mb-8">
+          <!-- 选项将通过JavaScript动态添加 -->
+        </div>
+        
+        <div class="flex justify-between">
+          <button id="prev-btn" class="btn-secondary opacity-50 cursor-not-allowed text-sm sm:text-base" disabled>
+            <i class="fa fa-arrow-left mr-2"></i> 上一题
+          </button>
+          <button id="next-btn" class="btn-primary opacity-50 cursor-not-allowed text-sm sm:text-base" disabled>
+            下一题 <i class="fa fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="result" class="hidden">
+      <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center text-dark mb-6 sm:mb-8">测试结果</h2>
+        
+        <div class="flex flex-col md:flex-row items-center mb-8">
+          <div class="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center">
+            <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-primary shadow-lg">
+              <img id="result-image" src="" alt="匹配角色" class="w-full h-full object-cover">
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3 md:pl-8">
+            <h3 id="result-name" class="text-xl sm:text-2xl font-bold text-dark mb-2"></h3>
+            <p id="result-anime" class="text-base sm:text-lg text-gray-600 mb-4"></p>
+            <div class="flex items-center mb-4">
+              <div class="text-sm font-medium text-gray-500 mr-2">匹配度：</div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div id="match-percentage" class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+              <span id="match-percentage-text" class="ml-2 text-sm font-medium text-gray-700">85%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-8">
+          <h4 class="text-xl font-semibold text-dark mb-3">性格分析</h4>
+          <p id="result-description" class="text-gray-700 leading-relaxed"></p>
+        </div>
+        
+        <div class="mb-8">
+          <h4 class="text-xl font-semibold text-dark mb-3">为什么是这个结果？</h4>
+          <ul id="result-reasons" class="list-disc list-inside text-gray-700 space-y-2"></ul>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+          <button id="share-btn" class="btn-secondary text-sm sm:text-base">
+            <i class="fa fa-share-alt mr-2"></i> 分享结果
+          </button>
+          <button id="restart-btn" class="btn-primary text-sm sm:text-base">
+            <i class="fa fa-refresh mr-2"></i> 重新测试
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分享弹窗 -->
+    <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-xl p-4 sm:p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg sm:text-xl font-bold text-dark">分享你的结果</h3>
+          <button id="close-share-modal" class="text-gray-500 hover:text-gray-700">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <div class="bg-light rounded-lg p-4 mb-6">
+          <p id="share-text" class="text-gray-700"></p>
+        </div>
+        
+        <div class="flex justify-center space-x-4 mb-6">
+          <button class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-opacity-90 transition-colors">
+            <i class="fa fa-weixin"></i>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-opacity-90 transition-colors">
+            <i class="fa fa-weibo"></i>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center hover:bg-opacity-90 transition-colors">
+            <i class="fa fa-qq"></i>
+          </button>
+        </div>
+        
+        <button id="copy-share-text" class="w-full btn-secondary">
+          <i class="fa fa-copy mr-2"></i> 复制分享文案
+        </button>
+      </div>
+    </div>
+
+    <!-- 关于测试 -->
+    <section id="about" class="py-12">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-dark mb-6 text-center">关于测试</h2>
+        <div class="bg-white rounded-xl shadow-md p-4 sm:p-6">
+          <p class="text-gray-700 mb-4">
+            这个测试基于心理学中的人格理论，通过你对不同情境的选择，分析你的性格特点，并匹配最相似的动漫女性角色。
+          </p>
+          <p class="text-gray-700 mb-4">
+            测试包含10道题目，每个题目有4个选项，分别对应不同的性格特质。完成测试后，系统会计算你的选择与各个角色的匹配度，给出最适合你的结果。
+          </p>
+          <p class="text-gray-700">
+            请注意，这只是一个趣味测试，结果仅供参考。每个人都是独一无二的，不要过于纠结于测试结果。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 角色介绍 -->
+    <section id="characters" class="py-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-dark mb-6 sm:mb-8 text-center">角色介绍</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-2/5">
+              <img src="https://p11-doubao-search-sign.byteimg.com/labis/3ef0c8fecc31f8e24dba7a03a08854be~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=cjzrUO6uUIYNf7HGYzDwRr4PIMM%3D" 
+                   alt="薇尔莉特·伊芙加登" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 sm:p-6 md:w-3/5">
+              <h3 class="text-lg sm:text-xl font-semibold text-dark mb-2">薇尔莉特·伊芙加登</h3>
+              <p class="text-sm text-gray-500 mb-3">《紫罗兰永恒花园》</p>
+              <p class="text-gray-700 text-sm">
+                曾是一名战斗兵器，战争结束后成为自动手记人偶，学习理解人类情感。
+                她有着金色的长发和蓝色的眼睛，外表美丽，内心坚强。
+                虽然起初不理解感情，但通过代笔工作逐渐学会了爱与被爱。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-2/5">
+              <img src="https://p26-doubao-search-sign.byteimg.com/labis/1c62ca4181e68e6f7ef5c752cd160f0f~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=UgMgsPvZPn0%2F3MbCW9y0%2B8L5c6c%3D" 
+                   alt="牧濑红莉栖" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 sm:p-6 md:w-3/5">
+              <h3 class="text-lg sm:text-xl font-semibold text-dark mb-2">牧濑红莉栖</h3>
+              <p class="text-sm text-gray-500 mb-3">《命运石之门》</p>
+              <p class="text-gray-700 text-sm">
+                天才少女，18岁就从大学毕业的脑科学研究者。有着红色的长发和蓝色的眼睛，性格傲娇，不擅长表达情感。
+                虽然表面上强势，但内心温柔，对科学有着强烈的好奇心和热情。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-2/5">
+              <img src="https://p26-doubao-search-sign.byteimg.com/labis/603c7f232d4673863cd34000ea982368~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=WzrajkSV1U66DxeUEoSx%2B6xh00A%3D" 
+                   alt="蕾姆" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 sm:p-6 md:w-3/5">
+              <h3 class="text-lg sm:text-xl font-semibold text-dark mb-2">蕾姆</h3>
+              <p class="text-sm text-gray-500 mb-3">《从零开始的异世界生活》</p>
+              <p class="text-gray-700 text-sm">
+                罗兹瓦尔宅邸的双胞胎女仆之一，有着蓝色的短发和蓝色的眼睛。
+                性格温柔体贴，擅长家务，但也有坚强的一面，能够战斗保护重要的人。
+                对主角菜月昴有着深深的信任和爱意，是他的精神支柱。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+          <div class="md:flex">
+            <div class="md:w-2/5">
+              <img src="https://p3-doubao-search-sign.byteimg.com/labis/b51afc06664a72817d1c3a7789f14600~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=7EmQSSShusz3qBfQPloscR0%2F%2B78%3D" 
+                   alt="明日香" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 sm:p-6 md:w-3/5">
+              <h3 class="text-lg sm:text-xl font-semibold text-dark mb-2">明日香</h3>
+              <p class="text-sm text-gray-500 mb-3">《新世纪福音战士》</p>
+              <p class="text-gray-700 text-sm">
+                EVA二号机的驾驶员，有着金色的长发和蓝色的眼睛。
+                性格好胜、自信，有着强烈的自尊心，以自己的驾驶能力为荣。
+                虽然表面上强势，但内心也有脆弱的一面，渴望得到认可和关爱。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center space-x-2">
+            <i class="fa fa-heart text-primary text-xl"></i>
+            <span class="text-lg font-bold">动漫人格测试</span>
+          </div>
+          <p class="text-sm text-gray-400 mt-2">找出与你性格最匹配的动漫女性角色</p>
+        </div>
+        
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+            <i class="fa fa-weibo text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+            <i class="fa fa-weixin text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+            <i class="fa fa-github text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-6 pt-6 text-center text-xs sm:text-sm text-gray-500">
+        <p>© 2026 动漫人格测试 | 本测试仅供娱乐，非官方应用</p>
+        <p class="mt-2">基于《紫罗兰永恒花园》、《命运石之门》、《从零开始的异世界生活》和《新世纪福音战士》</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 初始化AOS动画库
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        // 在移动设备上禁用某些动画以提高性能
+        disable: 'mobile',
+        // 动画持续时间
+        duration: 800,
+        // 动画延迟
+        delay: 100
+      });
+      
+      // 移动端菜单切换
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      // 点击移动端菜单项后关闭菜单
+      const mobileMenuItems = mobileMenu.querySelectorAll('a');
+      mobileMenuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+      
+      // 测试题目数据
+      const questions = [
+        {
+          id: 1,
+          text: "在面对困难时，你通常会怎么做？",
+          options: [
+            { text: "冷静分析，寻找最佳解决方案", value: "kurisu" },
+            { text: "坚持不懈，努力克服", value: "rem" },
+            { text: "寻求他人帮助", value: "violet" },
+            { text: "凭借自信和能力直接面对", value: "asuka" }
+          ]
+        },
+        {
+          id: 2,
+          text: "你如何看待自己的情感表达？",
+          options: [
+            { text: "不擅长表达，经常隐藏真实感受", value: "violet" },
+            { text: "傲娇，表面上不承认但内心很在意", value: "kurisu" },
+            { text: "直接表达，不掩饰自己的想法", value: "asuka" },
+            { text: "温柔体贴，优先考虑他人感受", value: "rem" }
+          ]
+        },
+        {
+          id: 3,
+          text: "在团队中，你更喜欢扮演什么角色？",
+          options: [
+            { text: "领导者，负责决策", value: "asuka" },
+            { text: "智囊团，提供建议和解决方案", value: "kurisu" },
+            { text: "执行者，认真完成任务", value: "rem" },
+            { text: "观察者，学习和适应", value: "violet" }
+          ]
+        },
+        {
+          id: 4,
+          text: "你如何处理与他人的冲突？",
+          options: [
+            { text: "直接面对，不回避问题", value: "asuka" },
+            { text: "理性分析，寻找共同点", value: "kurisu" },
+            { text: "让步，避免伤害关系", value: "rem" },
+            { text: "保持距离，冷静后再处理", value: "violet" }
+          ]
+        },
+        {
+          id: 5,
+          text: "你对自己的能力有多自信？",
+          options: [
+            { text: "非常自信，相信自己能做到任何事", value: "asuka" },
+            { text: "对专业领域有自信，但其他方面保持谨慎", value: "kurisu" },
+            { text: "不太自信，需要他人认可", value: "rem" },
+            { text: "正在学习中，逐渐建立自信", value: "violet" }
+          ]
+        },
+        {
+          id: 6,
+          text: "你如何看待过去的创伤？",
+          options: [
+            { text: "努力克服，不让过去影响现在", value: "violet" },
+            { text: "将其转化为前进的动力", value: "rem" },
+            { text: "偶尔会想起，但不会被它困扰", value: "kurisu" },
+            { text: "选择遗忘，专注于未来", value: "asuka" }
+          ]
+        },
+        {
+          id: 7,
+          text: "在人际关系中，你最看重什么？",
+          options: [
+            { text: "信任和忠诚", value: "rem" },
+            { text: "理解和共鸣", value: "violet" },
+            { text: "尊重和认可", value: "asuka" },
+            { text: "共同的兴趣和目标", value: "kurisu" }
+          ]
+        },
+        {
+          id: 8,
+          text: "你如何度过空闲时间？",
+          options: [
+            { text: "学习新知识或技能", value: "kurisu" },
+            { text: "照顾他人或做家务", value: "rem" },
+            { text: "进行体育活动或锻炼", value: "asuka" },
+            { text: "阅读或安静地思考", value: "violet" }
+          ]
+        },
+        {
+          id: 9,
+          text: "你如何看待失败？",
+          options: [
+            { text: "难以接受，会感到沮丧", value: "asuka" },
+            { text: "分析原因，避免再次犯错", value: "kurisu" },
+            { text: "视为成长的机会", value: "violet" },
+            { text: "不轻易放弃，继续尝试", value: "rem" }
+          ]
+        },
+        {
+          id: 10,
+          text: "你最欣赏自己的哪一点？",
+          options: [
+            { text: "坚强的意志力", value: "rem" },
+            { text: "聪明的头脑", value: "kurisu" },
+            { text: "出色的能力", value: "asuka" },
+            { text: "善良的内心", value: "violet" }
+          ]
+        }
+      ];
+      
+      // 角色数据
+      const characters = {
+        violet: {
+          name: "薇尔莉特·伊芙加登",
+          anime: "《紫罗兰永恒花园》",
+          image: "https://p11-doubao-search-sign.byteimg.com/labis/3ef0c8fecc31f8e24dba7a03a08854be~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=cjzrUO6uUIYNf7HGYzDwRr4PIMM%3D",
+          description: "你像薇尔莉特一样，内心温柔而坚强。虽然可能不擅长表达情感，但你真诚地关心他人，并且愿意学习如何更好地理解和表达自己的感受。你有着强烈的责任感和使命感，会认真完成每一项任务。",
+          reasons: [
+            "你在面对困难时倾向于寻求他人帮助，显示出你愿意学习和成长的态度",
+            "你不擅长表达情感，经常隐藏真实感受，这与薇尔莉特起初不理解感情的特点相似",
+            "你在团队中更喜欢扮演观察者的角色，学习和适应环境",
+            "你将过去的创伤视为成长的机会，展现出坚强的内心",
+            "你最欣赏自己善良的内心，这是薇尔莉特最核心的特质"
+          ]
+        },
+        kurisu: {
+          name: "牧濑红莉栖",
+          anime: "《命运石之门》",
+          image: "https://p26-doubao-search-sign.byteimg.com/labis/1c62ca4181e68e6f7ef5c752cd160f0f~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=UgMgsPvZPn0%2F3MbCW9y0%2B8L5c6c%3D",
+          description: "你像牧濑红莉栖一样，拥有聪明的头脑和理性的思维。你在专业领域有着强烈的自信，但在情感表达上可能有些傲娇。你重视知识和真理，喜欢分析问题并寻找解决方案。虽然表面上可能显得有些冷漠，但内心深处有着温柔的一面。",
+          reasons: [
+            "你在面对困难时倾向于冷静分析，寻找最佳解决方案，展现出理性思维",
+            "你在情感表达上属于傲娇类型，表面上不承认但内心很在意",
+            "你在团队中更喜欢扮演智囊团的角色，提供建议和解决方案",
+            "你对专业领域有自信，但在其他方面保持谨慎",
+            "你最欣赏自己聪明的头脑，这是牧濑红莉栖最突出的特点"
+          ]
+        },
+        rem: {
+          name: "蕾姆",
+          anime: "《从零开始的异世界生活》",
+          image: "https://p26-doubao-search-sign.byteimg.com/labis/603c7f232d4673863cd34000ea982368~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=WzrajkSV1U66DxeUEoSx%2B6xh00A%3D",
+          description: "你像蕾姆一样，温柔体贴，善于照顾他人。你有着强烈的责任感和忠诚度，会为了重要的人付出一切。你可能不太自信，但你的坚强和毅力令人钦佩。你重视家庭和人际关系，愿意为了所爱的人做出牺牲。",
+          reasons: [
+            "你在面对困难时选择坚持不懈，努力克服，展现出坚强的毅力",
+            "你在情感表达上温柔体贴，优先考虑他人感受",
+            "你在团队中更喜欢扮演执行者的角色，认真完成任务",
+            "你在处理冲突时倾向于让步，避免伤害关系",
+            "你最欣赏自己坚强的意志力，这是蕾姆最令人钦佩的品质"
+          ]
+        },
+        asuka: {
+          name: "明日香",
+          anime: "《新世纪福音战士》",
+          image: "https://p3-doubao-search-sign.byteimg.com/labis/b51afc06664a72817d1c3a7789f14600~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792371167&x-signature=7EmQSSShusz3qBfQPloscR0%2F%2B78%3D",
+          description: "你像明日香一样，自信、好胜，有着强烈的自尊心。你相信自己的能力，并且愿意通过努力证明自己。你可能表面上显得有些强势，但内心也有脆弱的一面。你重视他人的认可和尊重，渴望展现自己的价值。",
+          reasons: [
+            "你在面对困难时凭借自信和能力直接面对，展现出勇敢的态度",
+            "你在情感表达上直接坦率，不掩饰自己的想法",
+            "你在团队中更喜欢扮演领导者的角色，负责决策",
+            "你对自己的能力非常自信，相信自己能做到任何事",
+            "你最欣赏自己出色的能力，这是明日香最突出的特点"
+          ]
+        }
+      };
+      
+      // DOM元素
+      const welcomeSection = document.getElementById('welcome');
+      const testSection = document.getElementById('test');
+      const resultSection = document.getElementById('result');
+      const startTestBtn = document.getElementById('start-test');
+      const currentQuestionEl = document.getElementById('current-question');
+      const progressBarEl = document.getElementById('progress-bar');
+      const questionTextEl = document.getElementById('question-text');
+      const optionsContainerEl = document.getElementById('options-container');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const resultImageEl = document.getElementById('result-image');
+      const resultNameEl = document.getElementById('result-name');
+      const resultAnimeEl = document.getElementById('result-anime');
+      const matchPercentageEl = document.getElementById('match-percentage');
+      const matchPercentageTextEl = document.getElementById('match-percentage-text');
+      const resultDescriptionEl = document.getElementById('result-description');
+      const resultReasonsEl = document.getElementById('result-reasons');
+      const shareBtn = document.getElementById('share-btn');
+      const restartBtn = document.getElementById('restart-btn');
+      const shareModal = document.getElementById('share-modal');
+      const closeShareModalBtn = document.getElementById('close-share-modal');
+      const shareTextEl = document.getElementById('share-text');
+      const copyShareTextBtn = document.getElementById('copy-share-text');
+      
+      // 测试状态
+      let currentQuestionIndex = 0;
+      const userAnswers = {};
+      
+      // 开始测试
+      startTestBtn.addEventListener('click', function() {
+        welcomeSection.classList.add('hidden');
+        testSection.classList.remove('hidden');
+        loadQuestion(currentQuestionIndex);
+      });
+      
+      // 加载问题
+      function loadQuestion(index) {
+        const question = questions[index];
+        currentQuestionEl.textContent = question.id;
+        progressBarEl.style.width = `${(question.id / questions.length) * 100}%`;
+        questionTextEl.textContent = question.text;
+        
+        // 清空选项容器
+        optionsContainerEl.innerHTML = '';
+        
+        // 添加选项
+        question.options.forEach((option, i) => {
+          const optionBtn = document.createElement('button');
+          optionBtn.className = 'option-btn';
+          optionBtn.innerHTML = `
+            <div class="flex items-center">
+              <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+              </div>
+              <span>${option.text}</span>
+            </div>
+          `;
+          
+          // 如果用户已经回答过这个问题，显示选中状态
+          if (userAnswers[question.id] === option.value) {
+            optionBtn.classList.add('selected');
+          }
+          
+          optionBtn.addEventListener('click', function() {
+            // 移除其他选项的选中状态
+            document.querySelectorAll('.option-btn').forEach(btn => {
+              btn.classList.remove('selected');
+            });
+            
+            // 添加当前选项的选中状态
+            this.classList.add('selected');
+            
+            // 保存用户的回答
+            userAnswers[question.id] = option.value;
+            
+            // 启用下一题按钮
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          });
+          
+          optionsContainerEl.appendChild(optionBtn);
+        });
+        
+        // 更新导航按钮状态
+        prevBtn.disabled = index === 0;
+        prevBtn.classList.toggle('opacity-50', index === 0);
+        prevBtn.classList.toggle('cursor-not-allowed', index === 0);
+        
+        nextBtn.disabled = !userAnswers[question.id];
+        nextBtn.classList.toggle('opacity-50', !userAnswers[question.id]);
+        nextBtn.classList.toggle('cursor-not-allowed', !userAnswers[question.id]);
+        
+        // 如果是最后一题，更改按钮文本
+        if (index === questions.length - 1) {
+          nextBtn.innerHTML = '查看结果 <i class="fa fa-check ml-2"></i>';
+        } else {
+          nextBtn.innerHTML = '下一题 <i class="fa fa-arrow-right ml-2"></i>';
+        }
+      }
+      
+      // 上一题按钮
+      prevBtn.addEventListener('click', function() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          loadQuestion(currentQuestionIndex);
+        }
+      });
+      
+      // 下一题按钮
+      nextBtn.addEventListener('click', function() {
+        if (currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++;
+          loadQuestion(currentQuestionIndex);
+        } else {
+          // 计算结果
+          calculateResult();
+        }
+      });
+      
+      // 计算结果
+      function calculateResult() {
+        // 统计每个角色的得分
+        const scores = {
+          violet: 0,
+          kurisu: 0,
+          rem: 0,
+          asuka: 0
+        };
+        
+        // 计算得分
+        for (const questionId in userAnswers) {
+          scores[userAnswers[questionId]]++;
+        }
+        
+        // 找出得分最高的角色
+        let maxScore = 0;
+        let resultCharacter = '';
+        
+        for (const character in scores) {
+          if (scores[character] > maxScore) {
+            maxScore = scores[character];
+            resultCharacter = character;
+          }
+        }
+        
+        // 计算匹配百分比
+        const matchPercentage = Math.round((maxScore / questions.length) * 100);
+        
+        // 显示结果
+        const character = characters[resultCharacter];
+        resultImageEl.src = character.image;
+        resultNameEl.textContent = character.name;
+        resultAnimeEl.textContent = character.anime;
+        matchPercentageEl.style.width = `${matchPercentage}%`;
+        matchPercentageTextEl.textContent = `${matchPercentage}%`;
+        resultDescriptionEl.textContent = character.description;
+        
+        // 添加匹配理由
+        resultReasonsEl.innerHTML = '';
+        character.reasons.forEach(reason => {
+          const li = document.createElement('li');
+          li.textContent = reason;
+          resultReasonsEl.appendChild(li);
+        });
+        
+        // 更新分享文案
+        shareTextEl.textContent = `我在动漫人格测试中匹配到了${character.name}（${character.anime}），匹配度${matchPercentage}%！快来测试看看你是哪位动漫角色吧！`;
+        
+        // 切换到结果页
+        testSection.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+      }
+      
+      // 分享按钮
+      shareBtn.addEventListener('click', function() {
+        shareModal.classList.remove('hidden');
+      });
+      
+      // 关闭分享弹窗
+      closeShareModalBtn.addEventListener('click', function() {
+        shareModal.classList.add('hidden');
+      });
+      
+      // 复制分享文案
+      copyShareTextBtn.addEventListener('click', function() {
+        const textToCopy = shareTextEl.textContent;
+        navigator.clipboard.writeText(textToCopy).then(function() {
+          // 显示复制成功提示
+          const originalText = copyShareTextBtn.innerHTML;
+          copyShareTextBtn.innerHTML = '<i class="fa fa-check mr-2"></i> 复制成功';
+          copyShareTextBtn.classList.add('bg-green-600');
+          
+          setTimeout(function() {
+            copyShareTextBtn.innerHTML = originalText;
+            copyShareTextBtn.classList.remove('bg-green-600');
+          }, 2000);
+        });
+      });
+      
+      // 重新测试按钮
+      restartBtn.addEventListener('click', function() {
+        // 重置测试状态
+        currentQuestionIndex = 0;
+        Object.keys(userAnswers).forEach(key => delete userAnswers[key]);
+        
+        // 切换到测试页
+        resultSection.classList.add('hidden');
+        testSection.classList.remove('hidden');
+        loadQuestion(currentQuestionIndex);
+      });
+      
+      // 点击弹窗外部关闭弹窗
+      window.addEventListener('click', function(event) {
+        if (event.target === shareModal) {
+          shareModal.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
