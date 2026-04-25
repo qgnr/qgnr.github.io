@@ -4,1004 +4,515 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>薇尔莉特·伊芙加登 2048</title>
-    <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- 统一的 Tailwind 配置 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1e40af', // 薇尔莉特制服蓝色
-                        secondary: '#f8fafc', // 白色
-                        accent: '#f59e0b', // 金色点缀
-                        violet: '#8b5cf6', // 紫罗兰色
-                        light: '#dbeafe', // 浅蓝色
-                        dark: '#1e293b', // 深蓝色
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    animation: {
-                        'bounce-slow': 'bounce 2s infinite',
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-up': 'slideUp 0.3s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                    },
+                        primary: '#1e40af',
+                        secondary: '#f8fafc',
+                        accent: '#f59e0b',
+                        violet: '#8b5cf6',
+                        light: '#dbeafe',
+                        dark: '#1e293b',
+                    }
                 }
             }
         }
     </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            }
-            .bg-blur {
-                backdrop-filter: blur(8px);
-            }
-            .tile-merge {
-                animation: merge 0.3s ease-in-out;
-            }
-            .tile-new {
-                animation: appear 0.3s ease-in-out;
-            }
-            .glass-effect {
-                background: rgba(255, 255, 255, 0.2);
-                backdrop-filter: blur(8px);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-            }
-            .violet-gradient {
-                background: linear-gradient(135deg, #1e40af, #8b5cf6);
-            }
-        }
-
-        @keyframes merge {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes appear {
-            0% { opacity: 0; transform: scale(0); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* 游戏板样式 */
-        .game-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .game-board {
-            position: relative;
-            width: 100%;
-            padding-bottom: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .grid-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 12px;
-            padding: 12px;
-        }
-
-        .grid-cell {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .tile {
-            position: absolute;
-            width: calc(25% - 9px);
-            height: calc(25% - 9px);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 24px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 不同数值方块的颜色 */
-        .tile-2 { background-color: #dbeafe; color: #1e40af; }
-        .tile-4 { background-color: #bfdbfe; color: #1e40af; }
-        .tile-8 { background-color: #93c5fd; color: #1e40af; }
-        .tile-16 { background-color: #60a5fa; color: white; }
-        .tile-32 { background-color: #3b82f6; color: white; }
-        .tile-64 { background-color: #2563eb; color: white; }
-        .tile-128 { background-color: #1d4ed8; color: white; font-size: 20px; }
-        .tile-256 { background-color: #1e40af; color: white; font-size: 20px; }
-        .tile-512 { background-color: #7c3aed; color: white; font-size: 20px; }
-        .tile-1024 { background-color: #6d28d9; color: white; font-size: 16px; }
-        .tile-2048 { background-color: #5b21b6; color: white; font-size: 16px; }
-        .tile-super { background-color: #4c1d95; color: white; font-size: 16px; }
-
-        /* 响应式调整 */
-        @media (max-width: 640px) {
-            .tile {
-                font-size: 20px;
-            }
-            .tile-128, .tile-256, .tile-512 {
-                font-size: 16px;
-            }
-            .tile-1024, .tile-2048, .tile-super {
-                font-size: 14px;
-            }
-        }
-
-        /* 背景样式 */
-        .bg-pattern {
-            background-image: url('https://p3-doubao-search-sign.byteimg.com/labis/b2300efbaca64c9c9b5ea2ce5d18cb1e~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639457&x-signature=yox0j1cN9Bcv1b8n5M9aqqknrjU%3D');
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            background: #1a2238;
+            background-image: url("https://img0.baidu.com/it/u=2396092299,2879302393&fm=253&fmt=auto&app=138&f=JPEG?w=1280&h=720");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            min-height: 100vh;
         }
+        .glass{
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border:1px solid rgba(255,255,255,0.2);
+        }
+        /* 游戏棋盘核心修复 */
+        .game-wrap{
+            width: min(90vw, 480px);
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+            position: relative;
+        }
+        .game-bg{
+            width:100%;height:100%;
+            background: rgba(30,64,175,0.25);
+            border-radius:16px;
+            padding:12px;
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: repeat(4,1fr);
+            gap:10px;
+        }
+        .grid-cell{
+            background:rgba(255,255,255,0.2);
+            border-radius:8px;
+        }
+        #tiles{
+            position:absolute;
+            top:12px;left:12px;right:12px;bottom:12px;
+        }
+        .tile{
+            position:absolute;
+            border-radius:8px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-weight:bold;
+            transition:0.15s ease;
+        }
+        /* 方块配色 */
+        .tile-2{background:#e0efff;color:#1e40af;}
+        .tile-4{background:#c7dcfb;color:#1e40af;}
+        .tile-8{background:#93c5fd;color:#fff;}
+        .tile-16{background:#60a5fa;color:#fff;}
+        .tile-32{background:#3b82f6;color:#fff;}
+        .tile-64{background:#2563eb;color:#fff;}
+        .tile-128{background:#1d4ed8;color:#fff;}
+        .tile-256{background:#1e40af;color:#fff;}
+        .tile-512{background:#7c3aed;color:#fff;}
+        .tile-1024{background:#6d28d9;color:#fff;font-size:18px;}
+        .tile-2048{background:#5b21b6;color:#fff;font-size:18px;}
 
-        /* 游戏结束遮罩 */
-        .game-over-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 10;
+        /* 弹窗/提示 */
+        .game-over{
+            position:absolute;
+            inset:0;
+            background:rgba(0,0,0,0.7);
+            border-radius:16px;
+            display:none;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
         }
-
-        .game-over-overlay.visible {
-            opacity: 1;
-            pointer-events: all;
+        .game-over.show{display:flex;}
+        .toast{
+            position:fixed;
+            right:20px;top:20px;
+            background:rgba(30,64,175,0.95);
+            color:#fff;
+            padding:14px 20px;
+            border-radius:8px;
+            transform:translateX(120%);
+            transition:0.3s;
+            z-index:999;
         }
-
-        /* 成就解锁提示 */
-        .achievement-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(30, 64, 175, 0.9);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 100;
-            max-width: 300px;
+        .toast.show{transform:translateX(0);}
+        /* 图鉴锁定 */
+        .lock-item .lock{
+            position:absolute;inset:0;
+            background:rgba(0,0,0,0.6);
+            display:flex;flex-direction:column;
+            align-items:center;justify-content:center;
+            color:#fff;
         }
-
-        .achievement-toast.visible {
-            transform: translateX(0);
-        }
+        .grayscale{filter:grayscale(1);}
     </style>
 </head>
-<body class="bg-pattern min-h-screen font-sans text-dark">
-    <div class="container mx-auto px-4 py-8">
-        <!-- 游戏标题 -->
-        <header class="text-center mb-8 animate-fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold text-white text-shadow mb-2">薇尔莉特·伊芙加登</h1>
-            <p class="text-xl text-white text-shadow italic">"花无凋零之时，爱无传达之期"</p>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-6">
+        <header class="text-center mb-6">
+            <h1 class="text-4xl font-bold drop-shadow-lg">薇尔莉特 2048</h1>
+            <p class="mt-2 opacity-80 italic">紫罗兰永恒花园</p>
         </header>
 
+        <!-- 分数栏 -->
+        <div class="flex justify-between items-center max-w-[480px] mx-auto mb-4">
+            <div class="flex gap-3">
+                <div class="glass rounded-lg px-4 py-2 text-center">
+                    <div class="text-xs opacity-80">当前分数</div>
+                    <div id="score" class="text-xl font-bold">0</div>
+                </div>
+                <div class="glass rounded-lg px-4 py-2 text-center">
+                    <div class="text-xs opacity-80">最高分</div>
+                    <div id="highScore" class="text-xl font-bold">0</div>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button id="restart" class="bg-accent px-3 py-2 rounded-lg text-sm">新游戏</button>
+                <button id="undo" class="bg-primary px-3 py-2 rounded-lg text-sm">撤销</button>
+            </div>
+        </div>
+
         <!-- 游戏主体 -->
-        <div class="game-container mb-8">
-            <!-- 分数和控制区 -->
-            <div class="flex justify-between items-center mb-4">
-                <div class="flex gap-4">
-                    <!-- 当前分数 -->
-                    <div class="glass-effect rounded-lg px-4 py-2 text-center">
-                        <div class="text-sm text-white opacity-80">分数</div>
-                        <div id="score" class="text-2xl font-bold text-white">0</div>
-                    </div>
-                    
-                    <!-- 最高分 -->
-                    <div class="glass-effect rounded-lg px-4 py-2 text-center">
-                        <div class="text-sm text-white opacity-80">最高分</div>
-                        <div id="highScore" class="text-2xl font-bold text-white">0</div>
-                    </div>
-                </div>
-                
-                <!-- 控制按钮 -->
-                <div class="flex gap-2">
-                    <button id="newGame" class="bg-accent hover:bg-amber-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center">
-                        <i class="fa fa-refresh mr-2"></i> 新游戏
-                    </button>
-                    <button id="undo" class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center">
-                        <i class="fa fa-undo mr-2"></i> 撤销
-                    </button>
-                </div>
+        <div class="game-wrap">
+            <div class="game-bg">
+                <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
             </div>
-
-            <!-- 游戏板 -->
-            <div class="game-board">
-                <div class="grid-container">
-                    <!-- 网格单元格 -->
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                </div>
-                
-                <!-- 方块将通过JS动态添加 -->
-                <div id="tiles-container"></div>
-                
-                <!-- 游戏结束遮罩 -->
-                <div id="gameOver" class="game-over-overlay">
-                    <h2 class="text-3xl font-bold mb-4">游戏结束</h2>
-                    <p class="text-xl mb-6">最终得分: <span id="finalScore">0</span></p>
-                    <button id="tryAgain" class="bg-accent hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 text-lg">
-                        再试一次
-                    </button>
-                </div>
-            </div>
-
-            <!-- 解锁成就提示 -->
-            <div id="achievementToast" class="achievement-toast">
-                <div class="font-bold">新成就解锁!</div>
-                <div id="achievementText">你已解锁新的薇尔莉特服装</div>
+            <div id="tiles"></div>
+            <div class="game-over" id="gameOver">
+                <h2 class="text-2xl font-bold mb-3">游戏结束</h2>
+                <p>最终得分：<span id="finalScore">0</span></p>
+                <button class="mt-4 bg-accent px-5 py-2 rounded-lg" id="againBtn">再来一局</button>
             </div>
         </div>
 
-        <!-- 游戏说明 -->
-        <div class="glass-effect rounded-xl p-6 mb-8">
-            <h2 class="text-2xl font-bold text-white mb-4">游戏说明</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-white mb-2">基本规则</h3>
-                    <ul class="list-disc list-inside text-white space-y-2">
-                        <li>使用方向键或滑动屏幕移动方块</li>
-                        <li>相同数字的方块会合并成为它们的和</li>
-                        <li>尝试合并出2048方块以获得胜利</li>
-                        <li>当没有可移动的空间时，游戏结束</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-white mb-2">特殊功能</h3>
-                    <ul class="list-disc list-inside text-white space-y-2">
-                        <li>达到特定分数解锁薇尔莉特不同服装</li>
-                        <li>合并方块时会播放角色语音</li>
-                        <li>游戏进度会自动保存</li>
-                        <li>支持撤销上一步操作</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- 解锁提示 -->
+        <div class="toast" id="toast">
+            <div class="font-bold">图鉴解锁</div>
+            <div id="toastText">解锁全新薇尔莉特立绘</div>
         </div>
 
-        <!-- 薇尔莉特画廊 -->
-        <div class="glass-effect rounded-xl p-6">
-            <h2 class="text-2xl font-bold text-white mb-4">薇尔莉特画廊</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery">
-                <!-- 初始显示的图片 -->
+        <!-- 图鉴区域 -->
+        <div class="max-w-[480px] mx-auto mt-8 glass rounded-xl p-4">
+            <h3 class="text-xl font-bold mb-3">📖 薇尔莉特图鉴</h3>
+            <div class="grid grid-cols-3 gap-3" id="gallery">
                 <div class="relative rounded-lg overflow-hidden aspect-square">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/7f01e9861a600e8b94e0baf245186e3e~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639457&x-signature=c4a4nM8ZPaQiwvFHwbscB7fC1F8%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-primary bg-opacity-70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <span class="text-white font-bold">初始服装</span>
-                    </div>
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/7f01e9861a600e8b94e0baf245186e3e" class="w-full h-full object-cover">
                 </div>
-                
-                <!-- 锁定的图片 -->
-                <div class="relative rounded-lg overflow-hidden aspect-square" data-score="512" data-unlocked="false">
-                    <img src="https://p3-doubao-search-sign.byteimg.com/labis/1340148014a423f3a46a936af8018368~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639457&x-signature=qGYRBdlk0yKWRGW9naWxqJ0cP8s%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 bg-dark bg-opacity-70 flex flex-col items-center justify-center">
-                        <i class="fa fa-lock text-4xl text-white mb-2"></i>
-                        <span class="text-white text-center">合并出512解锁</span>
-                    </div>
+                <div class="relative rounded-lg overflow-hidden aspect-square lock-item" data-need="512">
+                    <img src="https://p3-doubao-search-sign.byteimg.com/labis/1340148014a423f3a46a936af8018368" class="w-full h-full object-cover grayscale">
+                    <div class="lock"><i class="fa fa-lock text-xl"></i><div class="text-xs mt-1">512解锁</div></div>
                 </div>
-                
-                <div class="relative rounded-lg overflow-hidden aspect-square" data-score="1024" data-unlocked="false">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/abf21f24bdd24fbc71e78ce005f007ce~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639457&x-signature=4lC25J6PC%2BoFcaXNGeUJe0QHE8s%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 bg-dark bg-opacity-70 flex flex-col items-center justify-center">
-                        <i class="fa fa-lock text-4xl text-white mb-2"></i>
-                        <span class="text-white text-center">合并出1024解锁</span>
-                    </div>
+                <div class="relative rounded-lg overflow-hidden aspect-square lock-item" data-need="1024">
+                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/abf21f24bdd24fbc71e78ce005f007ce" class="w-full h-full object-cover grayscale">
+                    <div class="lock"><i class="fa fa-lock text-xl"></i><div class="text-xs mt-1">1024解锁</div></div>
                 </div>
-                
-                <div class="relative rounded-lg overflow-hidden aspect-square" data-score="2048" data-unlocked="false">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/9909c2eba44677bf30b218a73a41d832~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639472&x-signature=%2BuZXgznfC%2FHsukyGvmVciP%2FP%2FvM%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 bg-dark bg-opacity-70 flex flex-col items-center justify-center">
-                        <i class="fa fa-lock text-4xl text-white mb-2"></i>
-                        <span class="text-white text-center">合并出2048解锁</span>
-                    </div>
+                <div class="relative rounded-lg overflow-hidden aspect-square lock-item" data-need="2048">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/9909c2eba44677bf30b218a73a41d832" class="w-full h-full object-cover grayscale">
+                    <div class="lock"><i class="fa fa-lock text-xl"></i><div class="text-xs mt-1">2048解锁</div></div>
                 </div>
-                
-                <div class="relative rounded-lg overflow-hidden aspect-square" data-score="4096" data-unlocked="false">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/f3c616952357713b85201662fef0baf3~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792639472&x-signature=CUghxETrjUcH9uw7cf0TUoE1Wb8%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 bg-dark bg-opacity-70 flex flex-col items-center justify-center">
-                        <i class="fa fa-lock text-4xl text-white mb-2"></i>
-                        <span class="text-white text-center">合并出4096解锁</span>
-                    </div>
+                <div class="relative rounded-lg overflow-hidden aspect-square lock-item" data-need="4096">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/f3c616952357713b85201662fef0baf3" class="w-full h-full object-cover grayscale">
+                    <div class="lock"><i class="fa fa-lock text-xl"></i><div class="text-xs mt-1">4096解锁</div></div>
                 </div>
-                
-                <div class="relative rounded-lg overflow-hidden aspect-square" data-score="8192" data-unlocked="false">
-                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/01ec353c81834cebb3c44c38637fb252~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260425112402E110E22804241904526B&rrcfp=f06b921b&x-expires=1779679513&x-signature=XYjkzidaulBpvUqhqOSM6F%2BU%2Bh8%3D" 
-                         alt="薇尔莉特·伊芙加登" 
-                         class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 bg-dark bg-opacity-70 flex flex-col items-center justify-center">
-                        <i class="fa fa-lock text-4xl text-white mb-2"></i>
-                        <span class="text-white text-center">合并出8192解锁</span>
-                    </div>
+                <div class="relative rounded-lg overflow-hidden aspect-square lock-item" data-need="8192">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/01ec353c81834cebb3c44c38637fb252" class="w-full h-full object-cover grayscale">
+                    <div class="lock"><i class="fa fa-lock text-xl"></i><div class="text-xs mt-1">8192解锁</div></div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- 薇尔莉特台词 -->
-    <div id="quoteDisplay" class="fixed bottom-4 left-4 right-4 glass-effect rounded-lg p-4 text-white max-w-md hidden md:block">
-        <p id="currentQuote" class="italic"></p>
-        <p id="quoteAuthor" class="text-right text-sm mt-2">— 薇尔莉特·伊芙加登</p>
-    </div>
-
-    <!-- 音频元素 -->
-    <audio id="mergeSound" preload="auto">
-        <source src="" type="audio/mpeg">
-    </audio>
-    <audio id="unlockSound" preload="auto">
-        <source src="" type="audio/mpeg">
-    </audio>
 
     <script>
-        // 游戏核心逻辑
-        document.addEventListener('DOMContentLoaded', () => {
-            // 游戏状态
-            const game = {
-                board: Array(4).fill().map(() => Array(4).fill(0)),
-                score: 0,
-                highScore: parseInt(localStorage.getItem('violet2048-highScore')) || 0,
-                previousState: null,
-                previousScore: 0,
-                gameOver: false,
-                won: false,
-                unlockedItems: JSON.parse(localStorage.getItem('violet2048-unlocked')) || [],
-                
-                // 初始化游戏
-                init() {
-                    this.setupEventListeners();
-                    this.updateHighScore();
-                    this.loadUnlockedItems();
-                    this.newGame();
-                    this.displayRandomQuote();
-                },
-                
-                // 设置事件监听器
-                setupEventListeners() {
-                    // 键盘控制
-                    document.addEventListener('keydown', (e) => {
-                        if (this.gameOver) return;
-                        
-                        switch(e.key) {
-                            case 'ArrowUp':
-                                this.move('up');
-                                break;
-                            case 'ArrowDown':
-                                this.move('down');
-                                break;
-                            case 'ArrowLeft':
-                                this.move('left');
-                                break;
-                            case 'ArrowRight':
-                                this.move('right');
-                                break;
-                        }
-                    });
-                    
-                    // 触摸控制
-                    let touchStartX, touchStartY;
-                    const gameBoard = document.querySelector('.game-board');
-                    
-                    gameBoard.addEventListener('touchstart', (e) => {
-                        touchStartX = e.touches[0].clientX;
-                        touchStartY = e.touches[0].clientY;
-                        e.preventDefault();
-                    }, { passive: false });
-                    
-                    gameBoard.addEventListener('touchmove', (e) => {
-                        e.preventDefault();
-                    }, { passive: false });
-                    
-                    gameBoard.addEventListener('touchend', (e) => {
-                        if (!touchStartX || !touchStartY || this.gameOver) return;
-                        
-                        const touchEndX = e.changedTouches[0].clientX;
-                        const touchEndY = e.changedTouches[0].clientY;
-                        
-                        const dx = touchEndX - touchStartX;
-                        const dy = touchEndY - touchStartY;
-                        
-                        // 确定滑动方向
-                        if (Math.abs(dx) > Math.abs(dy)) {
-                            // 水平滑动
-                            if (dx > 50) this.move('right');
-                            else if (dx < -50) this.move('left');
-                        } else {
-                            // 垂直滑动
-                            if (dy > 50) this.move('down');
-                            else if (dy < -50) this.move('up');
-                        }
-                        
-                        touchStartX = null;
-                        touchStartY = null;
-                        e.preventDefault();
-                    }, { passive: false });
-                    
-                    // 新游戏按钮
-                    document.getElementById('newGame').addEventListener('click', () => {
-                        this.newGame();
-                    });
-                    
-                    // 撤销按钮
-                    document.getElementById('undo').addEventListener('click', () => {
-                        this.undo();
-                    });
-                    
-                    // 再试一次按钮
-                    document.getElementById('tryAgain').addEventListener('click', () => {
-                        this.newGame();
-                    });
-                },
-                
-                // 开始新游戏
-                newGame() {
-                    // 重置游戏板
-                    this.board = Array(4).fill().map(() => Array(4).fill(0));
-                    this.score = 0;
-                    this.gameOver = false;
-                    this.won = false;
-                    
-                    // 清除游戏板上的所有方块
-                    document.getElementById('tiles-container').innerHTML = '';
-                    
-                    // 隐藏游戏结束遮罩
-                    document.getElementById('gameOver').classList.remove('visible');
-                    
-                    // 更新分数显示
-                    this.updateScore();
-                    
-                    // 生成初始方块
-                    this.generateTile();
-                    this.generateTile();
-                    
-                    // 渲染游戏板
-                    this.renderBoard();
-                },
-                
-                // 保存当前状态用于撤销
-                saveState() {
-                    this.previousState = JSON.parse(JSON.stringify(this.board));
-                    this.previousScore = this.score;
-                },
-                
-                // 撤销上一步
-                undo() {
-                    if (!this.previousState) return;
-                    
-                    this.board = JSON.parse(JSON.stringify(this.previousState));
-                    this.score = this.previousScore;
-                    this.gameOver = false;
-                    this.won = false;
-                    
-                    // 更新分数显示
-                    this.updateScore();
-                    
-                    // 隐藏游戏结束遮罩
-                    document.getElementById('gameOver').classList.remove('visible');
-                    
-                    // 重新渲染游戏板
-                    this.renderBoard();
-                },
-                
-                // 生成新方块
-                generateTile() {
-                    const emptyCells = [];
-                    
-                    // 找出所有空格子
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 0; c < 4; c++) {
-                            if (this.board[r][c] === 0) {
-                                emptyCells.push({ row: r, col: c });
-                            }
-                        }
+        const game = {
+            size:4,
+            board:[],
+            score:0,
+            highScore:0,
+            lastBoard:null,
+            lastScore:0,
+            over:false,
+            unlockList:[],
+            init(){
+                // 读取本地存储
+                this.highScore = Number(localStorage.getItem("vio2048_hs")) || 0;
+                this.unlockList = JSON.parse(localStorage.getItem("vio2048_unlock")) || [];
+                this.resetBoard();
+                this.bindEvent();
+                this.updateHS();
+                this.loadUnlock();
+                this.addRandom();
+                this.addRandom();
+                this.render();
+            },
+            // 重置棋盘
+            resetBoard(){
+                this.board = Array(this.size).fill().map(()=>Array(this.size).fill(0));
+                this.score = 0;
+                this.over = false;
+            },
+            // 绑定事件
+            bindEvent(){
+                // 键盘
+                document.addEventListener("keydown",e=>{
+                    if(this.over)return;
+                    let dir;
+                    switch(e.key){
+                        case "ArrowUp":dir="up";break;
+                        case "ArrowDown":dir="down";break;
+                        case "ArrowLeft":dir="left";break;
+                        case "ArrowRight":dir="right";break;
                     }
-                    
-                    // 如果有空格子，随机选择一个生成方块
-                    if (emptyCells.length > 0) {
-                        const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                        // 90%概率生成2，10%概率生成4
-                        this.board[randomCell.row][randomCell.col] = Math.random() < 0.9 ? 2 : 4;
-                        return true;
+                    if(dir) this.move(dir);
+                })
+                // 按钮
+                document.getElementById("restart").onclick = ()=>this.newGame();
+                document.getElementById("againBtn").onclick = ()=>this.newGame();
+                document.getElementById("undo").onclick = ()=>this.undo();
+                // 触摸滑动
+                let sx,sy;
+                const wrap = document.querySelector(".game-wrap");
+                wrap.addEventListener("touchstart",e=>{
+                    sx = e.touches[0].clientX;
+                    sy = e.touches[0].clientY;
+                })
+                wrap.addEventListener("touchend",e=>{
+                    if(!sx||this.over)return;
+                    let ex = e.changedTouches[0].clientX;
+                    let ey = e.changedTouches[0].clientY;
+                    let dx = ex-sx, dy = ey-sy;
+                    if(Math.abs(dx) > Math.abs(dy)){
+                        if(dx>30)this.move("right");
+                        if(dx<-30)this.move("left");
+                    }else{
+                        if(dy>30)this.move("down");
+                        if(dy<-30)this.move("up");
                     }
-                    
-                    return false;
-                },
-                
-                // 移动方块
-                move(direction) {
-                    // 保存当前状态用于撤销
-                    this.saveState();
-                    
-                    let moved = false;
-                    
-                    // 根据方向执行移动
-                    switch(direction) {
-                        case 'up':
-                            moved = this.moveUp();
-                            break;
-                        case 'down':
-                            moved = this.moveDown();
-                            break;
-                        case 'left':
-                            moved = this.moveLeft();
-                            break;
-                        case 'right':
-                            moved = this.moveRight();
-                            break;
+                    sx=null;sy=null;
+                })
+            },
+            // 新游戏
+            newGame(){
+                this.resetBoard();
+                document.getElementById("gameOver").classList.remove("show");
+                this.addRandom();
+                this.addRandom();
+                this.render();
+                this.updateScore();
+            },
+            // 保存快照 用于撤销
+            saveSnap(){
+                this.lastBoard = JSON.parse(JSON.stringify(this.board));
+                this.lastScore = this.score;
+            },
+            undo(){
+                if(!this.lastBoard)return;
+                this.board = this.lastBoard;
+                this.score = this.lastScore;
+                this.over = false;
+                document.getElementById("gameOver").classList.remove("show");
+                this.render();
+                this.updateScore();
+            },
+            // 随机生成方块
+            addRandom(){
+                let empty = [];
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        if(this.board[i][j]===0) empty.push({x:i,y:j});
                     }
-                    
-                    // 如果有方块移动，生成新方块并检查游戏状态
-                    if (moved) {
-                        this.generateTile();
-                        this.renderBoard();
-                        this.checkGameStatus();
-                    }
-                },
-                
-                // 向上移动
-                moveUp() {
-                    let moved = false;
-                    
-                    for (let c = 0; c < 4; c++) {
-                        for (let r = 1; r < 4; r++) {
-                            if (this.board[r][c] !== 0) {
-                                let row = r;
-                                
-                                // 移动到最远的空格子
-                                while (row > 0 && this.board[row - 1][c] === 0) {
-                                    this.board[row - 1][c] = this.board[row][c];
-                                    this.board[row][c] = 0;
-                                    row--;
-                                    moved = true;
-                                }
-                                
-                                // 合并相同数字
-                                if (row > 0 && this.board[row - 1][c] === this.board[row][c]) {
-                                    this.board[row - 1][c] *= 2;
-                                    this.score += this.board[row - 1][c];
-                                    this.board[row][c] = 0;
-                                    moved = true;
-                                    
-                                    // 检查是否解锁新内容
-                                    this.checkUnlock(this.board[row - 1][c]);
-                                    
-                                    // 播放合并音效
-                                    this.playMergeSound();
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (moved) {
-                        this.updateScore();
-                    }
-                    
-                    return moved;
-                },
-                
-                // 向下移动
-                moveDown() {
-                    let moved = false;
-                    
-                    for (let c = 0; c < 4; c++) {
-                        for (let r = 2; r >= 0; r--) {
-                            if (this.board[r][c] !== 0) {
-                                let row = r;
-                                
-                                // 移动到最远的空格子
-                                while (row < 3 && this.board[row + 1][c] === 0) {
-                                    this.board[row + 1][c] = this.board[row][c];
-                                    this.board[row][c] = 0;
-                                    row++;
-                                    moved = true;
-                                }
-                                
-                                // 合并相同数字
-                                if (row < 3 && this.board[row + 1][c] === this.board[row][c]) {
-                                    this.board[row + 1][c] *= 2;
-                                    this.score += this.board[row + 1][c];
-                                    this.board[row][c] = 0;
-                                    moved = true;
-                                    
-                                    // 检查是否解锁新内容
-                                    this.checkUnlock(this.board[row + 1][c]);
-                                    
-                                    // 播放合并音效
-                                    this.playMergeSound();
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (moved) {
-                        this.updateScore();
-                    }
-                    
-                    return moved;
-                },
-                
-                // 向左移动
-                moveLeft() {
-                    let moved = false;
-                    
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 1; c < 4; c++) {
-                            if (this.board[r][c] !== 0) {
-                                let col = c;
-                                
-                                // 移动到最远的空格子
-                                while (col > 0 && this.board[r][col - 1] === 0) {
-                                    this.board[r][col - 1] = this.board[r][col];
-                                    this.board[r][col] = 0;
-                                    col--;
-                                    moved = true;
-                                }
-                                
-                                // 合并相同数字
-                                if (col > 0 && this.board[r][col - 1] === this.board[r][col]) {
-                                    this.board[r][col - 1] *= 2;
-                                    this.score += this.board[r][col - 1];
-                                    this.board[r][col] = 0;
-                                    moved = true;
-                                    
-                                    // 检查是否解锁新内容
-                                    this.checkUnlock(this.board[r][col - 1]);
-                                    
-                                    // 播放合并音效
-                                    this.playMergeSound();
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (moved) {
-                        this.updateScore();
-                    }
-                    
-                    return moved;
-                },
-                
-                // 向右移动
-                moveRight() {
-                    let moved = false;
-                    
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 2; c >= 0; c--) {
-                            if (this.board[r][c] !== 0) {
-                                let col = c;
-                                
-                                // 移动到最远的空格子
-                                while (col < 3 && this.board[r][col + 1] === 0) {
-                                    this.board[r][col + 1] = this.board[r][col];
-                                    this.board[r][col] = 0;
-                                    col++;
-                                    moved = true;
-                                }
-                                
-                                // 合并相同数字
-                                if (col < 3 && this.board[r][col + 1] === this.board[r][col]) {
-                                    this.board[r][col + 1] *= 2;
-                                    this.score += this.board[r][col + 1];
-                                    this.board[r][col] = 0;
-                                    moved = true;
-                                    
-                                    // 检查是否解锁新内容
-                                    this.checkUnlock(this.board[r][col + 1]);
-                                    
-                                    // 播放合并音效
-                                    this.playMergeSound();
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (moved) {
-                        this.updateScore();
-                    }
-                    
-                    return moved;
-                },
-                
-                // 渲染游戏板
-                renderBoard() {
-                    const container = document.getElementById('tiles-container');
-                    container.innerHTML = '';
-                    
-                    // 遍历游戏板，创建方块元素
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 0; c < 4; c++) {
-                            if (this.board[r][c] !== 0) {
-                                const tile = document.createElement('div');
-                                tile.classList.add('tile', `tile-${this.board[r][c]}`);
-                                
-                                // 设置方块位置
-                                tile.style.top = `calc(${r * 25}% + ${r * 12}px + 12px)`;
-                                tile.style.left = `calc(${c * 25}% + ${c * 12}px + 12px)`;
-                                
-                                // 设置方块内容
-                                tile.textContent = this.board[r][c];
-                                
-                                // 添加到容器
-                                container.appendChild(tile);
-                            }
-                        }
-                    }
-                },
-                
-                // 更新分数显示
-                updateScore() {
-                    document.getElementById('score').textContent = this.score;
-                    
-                    // 更新最高分
-                    if (this.score > this.highScore) {
-                        this.highScore = this.score;
-                        this.updateHighScore();
-                    }
-                },
-                
-                // 更新最高分并保存到本地存储
-                updateHighScore() {
-                    document.getElementById('highScore').textContent = this.highScore;
-                    localStorage.setItem('violet2048-highScore', this.highScore);
-                },
-                
-                // 检查游戏状态
-                checkGameStatus() {
-                    // 检查是否获胜（合并出2048）
-                    if (!this.won) {
-                        for (let r = 0; r < 4; r++) {
-                            for (let c = 0; c < 4; c++) {
-                                if (this.board[r][c] === 2048) {
-                                    this.won = true;
-                                    this.showGameOver('恭喜你获得了胜利！');
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    
-                    // 检查是否还有空格子
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 0; c < 4; c++) {
-                            if (this.board[r][c] === 0) {
-                                return; // 还有空格子，游戏继续
-                            }
-                        }
-                    }
-                    
-                    // 检查是否还有可合并的方块
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 0; c < 4; c++) {
-                            const current = this.board[r][c];
-                            
-                            // 检查右侧
-                            if (c < 3 && current === this.board[r][c + 1]) {
-                                return; // 可以合并，游戏继续
-                            }
-                            
-                            // 检查下方
-                            if (r < 3 && current === this.board[r + 1][c]) {
-                                return; // 可以合并，游戏继续
-                            }
-                        }
-                    }
-                    
-                    // 没有空格子且没有可合并的方块，游戏结束
-                    this.gameOver = true;
-                    this.showGameOver('游戏结束');
-                },
-                
-                // 显示游戏结束信息
-                showGameOver(message) {
-                    const overlay = document.getElementById('gameOver');
-                    const finalScore = document.getElementById('finalScore');
-                    
-                    finalScore.textContent = this.score;
-                    overlay.querySelector('h2').textContent = message;
-                    overlay.classList.add('visible');
-                    
-                    // 保存解锁的内容
-                    this.saveUnlockedItems();
-                },
-                
-                // 检查是否解锁新内容
-                checkUnlock(value) {
-                    // 检查是否解锁新的薇尔莉特服装
-                    const galleryItems = document.querySelectorAll('#gallery [data-unlocked="false"]');
-                    
-                    galleryItems.forEach(item => {
-                        const requiredScore = parseInt(item.dataset.score);
-                        
-                        if (value >= requiredScore) {
-                            // 解锁项目
-                            item.dataset.unlocked = 'true';
-                            item.querySelector('img').classList.remove('grayscale');
-                            
-                            // 移除锁定覆盖层
-                            const lockOverlay = item.querySelector('.bg-dark');
-                            if (lockOverlay) {
-                                lockOverlay.remove();
-                            }
-                            
-                            // 添加解锁提示
-                            const overlay = document.createElement('div');
-                            overlay.className = 'absolute inset-0 bg-primary bg-opacity-70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300';
-                            
-                            const scoreText = value >= 2048 ? '胜利服装' : `合并出${requiredScore}解锁`;
-                            overlay.innerHTML = `<span class="text-white font-bold">${scoreText}</span>`;
-                            
-                            item.appendChild(overlay);
-                            
-                            // 显示成就解锁提示
-                            this.showAchievement(`恭喜解锁新的薇尔莉特服装！`);
-                            
-                            // 播放解锁音效
-                            this.playUnlockSound();
-                            
-                            // 添加到已解锁列表
-                            if (!this.unlockedItems.includes(requiredScore)) {
-                                this.unlockedItems.push(requiredScore);
-                            }
-                        }
-                    });
-                },
-                
-                // 显示成就解锁提示
-                showAchievement(text) {
-                    const toast = document.getElementById('achievementToast');
-                    const textElement = document.getElementById('achievementText');
-                    
-                    textElement.textContent = text;
-                    toast.classList.add('visible');
-                    
-                    // 3秒后隐藏提示
-                    setTimeout(() => {
-                        toast.classList.remove('visible');
-                    }, 3000);
-                },
-                
-                // 加载已解锁的内容
-                loadUnlockedItems() {
-                    const galleryItems = document.querySelectorAll('#gallery [data-score]');
-                    
-                    galleryItems.forEach(item => {
-                        const requiredScore = parseInt(item.dataset.score);
-                        
-                        if (this.unlockedItems.includes(requiredScore)) {
-                            // 解锁项目
-                            item.dataset.unlocked = 'true';
-                            item.querySelector('img').classList.remove('grayscale');
-                            
-                            // 移除锁定覆盖层
-                            const lockOverlay = item.querySelector('.bg-dark');
-                            if (lockOverlay) {
-                                lockOverlay.remove();
-                            }
-                            
-                            // 添加解锁提示
-                            const overlay = document.createElement('div');
-                            overlay.className = 'absolute inset-0 bg-primary bg-opacity-70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300';
-                            
-                            const scoreText = requiredScore >= 2048 ? '胜利服装' : `合并出${requiredScore}解锁`;
-                            overlay.innerHTML = `<span class="text-white font-bold">${scoreText}</span>`;
-                            
-                            item.appendChild(overlay);
-                        }
-                    });
-                },
-                
-                // 保存已解锁的内容
-                saveUnlockedItems() {
-                    localStorage.setItem('violet2048-unlocked', JSON.stringify(this.unlockedItems));
-                },
-                
-                // 播放合并音效
-                playMergeSound() {
-                    // 这里可以添加合并音效
-                    // const mergeSound = document.getElementById('mergeSound');
-                    // mergeSound.play();
-                },
-                
-                // 播放解锁音效
-                playUnlockSound() {
-                    // 这里可以添加解锁音效
-                    // const unlockSound = document.getElementById('unlockSound');
-                    // unlockSound.play();
-                },
-                
-                // 显示随机薇尔莉特台词
-                displayRandomQuote() {
-                    const quotes = [
-                        "花无凋零之时，爱无传达之期，爱情亘古不变，紫罗兰永世长存。",
-                        "为什么要写信？因为人有思绪想传达给别人。",
-                        "我的手臂无法像你一样柔软，这也是没有办法的事。",
-                        "人的感受，真的很复杂很纤细，没有人会把所有想法说出口，时而矛盾，时而撒谎。",
-                        "虽然我也有被伤害哭泣的时候，伤害我的和我所伤害的都是人。但是对于同样将我治愈的人，即使哭泣也不能够去讨厌他们。",
-                        "我……本以为雪在我手上是不会融化的，原来我也是有温度的啊。",
-                        "第一个对我这么温柔的人就是你。",
-                        "你曾是我世界的一切，为了你我无所不能，我想知道你的心意，我想了解你的内心，即使现在相隔两地，我依然爱着你。",
-                        "如果有客人需要的话，无论何处我们都能感到，这里是自动书记人偶服务，薇尔莉特·伊芙加登。",
-                        "我想，我们正是在伤害与被伤害的循环往复中，渐渐变得温柔起来的。",
-                        "你要是有空的话，不如陪陪我。我想与你一起，细数万千繁星。",
-                        "你可曾窥视过我的眼瞳。若未有过，便请来窥视一下如何。我的眼瞳虽被夜色遮蔽，夜空之中却闪耀著繁星。"
-                    ];
-                    
-                    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                    document.getElementById('currentQuote').textContent = randomQuote;
-                    
-                    // 每30秒更换一次台词
-                    setInterval(() => {
-                        const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                        document.getElementById('currentQuote').textContent = newQuote;
-                    }, 30000);
                 }
-            };
-            
-            // 初始化游戏
-            game.init();
-        });
+                if(empty.length===0)return false;
+                let p = empty[Math.floor(Math.random()*empty.length)];
+                this.board[p.x][p.y] = Math.random()>0.1?2:4;
+                return true;
+            },
+            // 移动逻辑
+            move(dir){
+                this.saveSnap();
+                let move = false;
+                switch(dir){
+                    case "left": move = this.moveLeft(); break;
+                    case "right": move = this.moveRight(); break;
+                    case "up": move = this.moveUp(); break;
+                    case "down": move = this.moveDown(); break;
+                }
+                if(move){
+                    this.addRandom();
+                    this.render();
+                    this.checkStatus();
+                }
+            },
+            moveLeft(){
+                let m = false;
+                for(let i=0;i<4;i++){
+                    let row = this.board[i].filter(v=>v);
+                    for(let j=0;j<row.length-1;j++){
+                        if(row[j]===row[j+1]){
+                            row[j] *=2;
+                            this.score += row[j];
+                            this.checkUnlock(row[j]);
+                            row.splice(j+1,1);
+                        }
+                    }
+                    let newRow = Array(4).fill(0);
+                    row.forEach((v,idx)=>newRow[idx]=v);
+                    if(JSON.stringify(newRow) !== JSON.stringify(this.board[i])) m=true;
+                    this.board[i] = newRow;
+                }
+                this.updateScore();
+                return m;
+            },
+            moveRight(){
+                let m = false;
+                for(let i=0;i<4;i++){
+                    let row = this.board[i].filter(v=>v);
+                    for(let j=row.length-1;j>0;j--){
+                        if(row[j]===row[j-1]){
+                            row[j] *=2;
+                            this.score += row[j];
+                            this.checkUnlock(row[j]);
+                            row.splice(j-1,1);
+                            j--;
+                        }
+                    }
+                    let newRow = Array(4).fill(0);
+                    row.reverse().forEach((v,idx)=>newRow[3-idx]=v);
+                    if(JSON.stringify(newRow) !== JSON.stringify(this.board[i])) m=true;
+                    this.board[i] = newRow;
+                }
+                this.updateScore();
+                return m;
+            },
+            moveUp(){
+                let m = false;
+                for(let y=0;y<4;y++){
+                    let col = [];
+                    for(let x=0;x<4;x++) col.push(this.board[x][y]);
+                    col = col.filter(v=>v);
+                    for(let j=0;j<col.length-1;j++){
+                        if(col[j]===col[j+1]){
+                            col[j] *=2;
+                            this.score += col[j];
+                            this.checkUnlock(col[j]);
+                            col.splice(j+1,1);
+                        }
+                    }
+                    let newCol = Array(4).fill(0);
+                    col.forEach((v,idx)=>newCol[idx]=v);
+                    for(let x=0;x<4;x++){
+                        if(this.board[x][y] !== newCol[x]) m=true;
+                        this.board[x][y] = newCol[x];
+                    }
+                }
+                this.updateScore();
+                return m;
+            },
+            moveDown(){
+                let m = false;
+                for(let y=0;y<4;y++){
+                    let col = [];
+                    for(let x=0;x<4;x++) col.push(this.board[x][y]);
+                    col = col.filter(v=>v);
+                    for(let j=col.length-1;j>0;j--){
+                        if(col[j]===col[j-1]){
+                            col[j] *=2;
+                            this.score += col[j];
+                            this.checkUnlock(col[j]);
+                            col.splice(j-1,1);
+                            j--;
+                        }
+                    }
+                    let newCol = Array(4).fill(0);
+                    col.reverse().forEach((v,idx)=>newCol[3-idx]=v);
+                    for(let x=0;x<4;x++){
+                        if(this.board[x][y] !== newCol[x]) m=true;
+                        this.board[x][y] = newCol[x];
+                    }
+                }
+                this.updateScore();
+                return m;
+            },
+            // 渲染方块 修复错位
+            render(){
+                const container = document.getElementById("tiles");
+                container.innerHTML = "";
+                const gap = 10;
+                const pad = 12;
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        let val = this.board[i][j];
+                        if(!val)continue;
+                        let tile = document.createElement("div");
+                        tile.className = `tile tile-${val}`;
+                        // 精准计算位置大小
+                        let cellW = `calc((100% - ${gap*3}px) / 4)`;
+                        tile.style.width = cellW;
+                        tile.style.height = cellW;
+                        tile.style.left = `calc(${pad}px + ${j} * (${cellW} + ${gap}px))`;
+                        tile.style.top = `calc(${pad}px + ${i} * (${cellW} + ${gap}px))`;
+                        tile.innerText = val;
+                        container.appendChild(tile);
+                    }
+                }
+            },
+            // 更新分数
+            updateScore(){
+                document.getElementById("score").innerText = this.score;
+                // 修复最高分逻辑
+                if(this.score > this.highScore){
+                    this.highScore = this.score;
+                    localStorage.setItem("vio2048_hs",this.highScore);
+                    this.updateHS();
+                }
+            },
+            updateHS(){
+                document.getElementById("highScore").innerText = this.highScore;
+            },
+            // 检测图鉴解锁【核心修复】
+            checkUnlock(num){
+                const needList = [512,1024,2048,4096,8192];
+                if(needList.includes(num) && !this.unlockList.includes(num)){
+                    this.unlockList.push(num);
+                    localStorage.setItem("vio2048_unlock",JSON.stringify(this.unlockList));
+                    this.doUnlock(num);
+                }
+            },
+            doUnlock(num){
+                const items = document.querySelectorAll(`.lock-item[data-need="${num}"]`);
+                items.forEach(el=>{
+                    el.querySelector("img").classList.remove("grayscale");
+                    el.querySelector(".lock").remove();
+                })
+                // 解锁提示
+                const toast = document.getElementById("toast");
+                document.getElementById("toastText").innerText = `成功解锁 ${num} 限定图鉴！`;
+                toast.classList.add("show");
+                setTimeout(()=>toast.classList.remove("show"),2500);
+            },
+            // 加载已解锁
+            loadUnlock(){
+                this.unlockList.forEach(need=>{
+                    const el = document.querySelector(`.lock-item[data-need="${need}"]`);
+                    if(el){
+                        el.querySelector("img").classList.remove("grayscale");
+                        let lock = el.querySelector(".lock");
+                        if(lock) lock.remove();
+                    }
+                })
+            },
+            // 检测游戏结束
+            checkStatus(){
+                // 胜利
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        if(this.board[i][j]===2048){
+                            this.over = true;
+                            this.showOver("恭喜合成2048！");
+                            return;
+                        }
+                    }
+                }
+                // 无空格
+                let hasEmpty = false;
+                for(let i=0;i<4;i++)for(let j=0;j<4;j++)if(this.board[i][j]===0)hasEmpty=true;
+                if(hasEmpty)return;
+                // 无相邻可合并
+                let canMerge = false;
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        let v = this.board[i][j];
+                        if(j<3&&v===this.board[i][j+1])canMerge=true;
+                        if(i<3&&v===this.board[i+1][j])canMerge=true;
+                    }
+                }
+                if(!canMerge){
+                    this.over = true;
+                    this.showOver("游戏结束");
+                }
+            },
+            showOver(txt){
+                document.querySelector(".game-over h2").innerText = txt;
+                document.getElementById("finalScore").innerText = this.score;
+                document.getElementById("gameOver").classList.add("show");
+            }
+        }
+        game.init();
     </script>
 </body>
 </html>
